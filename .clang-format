@@ -6,7 +6,7 @@
 # AccessModifierOffset: -2 # 기본값 -2
 # ColumnLimit: 80
 
----
+# ---
 Language: Cpp
 # BasedOnStyle:  LLVM
 AccessModifierOffset: -4 # -2
