@@ -9,8 +9,8 @@ std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
 
 void Log::Init()
 {
-    // colorstart - timestamp - looger - msg - colorend
-    spdlog::set_pattern("%^[%T] %n: %v%$");
+    // colorst - level with paading- timestamp - looger - msg - colorend
+    spdlog::set_pattern("%^%=10l [%T] %n: %v%$");
 
     s_CoreLogger = spdlog::stdout_color_mt("V8");
     s_CoreLogger->set_level(spdlog::level::trace);

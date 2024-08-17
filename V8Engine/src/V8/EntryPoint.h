@@ -9,7 +9,7 @@ int main(int argc, char** argv)
     V8::Log::Init();
 
     V8_CORE_WARN("Initialized Log!");
-    CLI_INFO("Hello Var = {0}", 10);
+    CLI_DEBUG("Hello Var = {0}", 10);
 
     auto app = V8::CreateApplication();
     app->Run();
