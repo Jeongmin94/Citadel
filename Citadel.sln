@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Citadel", "Citadel\Citadel.vcxproj", "{7339290E-6CB9-46F1-8E87-89F69408CF2D}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "V8Engine", "V8Engine\V8Engine.vcxproj", "{F5D9D03D-0F5A-403D-89C2-24E82E7557E4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Citadel", "Citadel\Citadel.vcxproj", "{7339290E-6CB9-46F1-8E87-89F69408CF2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

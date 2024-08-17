@@ -1,5 +1,10 @@
-namespace V8 {
-__declspec(dllimport) void Print();
-}
+#include <V8Engine.h>
 
-int main() { V8::Print(); }
+class CitadelSandBox : public V8::Application
+{
+public:
+    CitadelSandBox() {}
+    ~CitadelSandBox() override{};
+};
+
+V8::Application* V8::CreateApplication() { return new CitadelSandBox; }
