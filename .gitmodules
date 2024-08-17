@@ -1,3 +1,3 @@
 [submodule "V8Engine/vendor/spdlog"]
-    path = V8Engine/vendor/spdlog
-    url = https://github.com/gabime/spdlog
+	path = V8Engine/vendor/spdlog
+	url = https://github.com/gabime/spdlog
