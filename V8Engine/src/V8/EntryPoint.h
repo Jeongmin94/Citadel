@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef V8_PLATFORM_WND
+#ifdef V8_PLATFORM_WINDOWS
 
 extern V8::Application* V8::CreateApplication();
 

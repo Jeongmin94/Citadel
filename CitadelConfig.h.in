@@ -1,0 +1,3 @@
+// Configure Options and Settings
+#define CITADEL_VERSION_MAJOR @Citadel_VERSION_MAJOR@
+#define CITADEL_VERSION_MINOR @Citadel_VERSION_MINOR@

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef V8_PLATFORM_WND
+#ifdef V8_PLATFORM_WINDOWS
 	#ifdef V8_BUILD_DLL
 		#define V8API __declspec(dllexport)
 	#else
