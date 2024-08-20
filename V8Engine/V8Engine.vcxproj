@@ -155,6 +155,7 @@
     <ClInclude Include="src\V8\Events\MouseEvent.h" />
     <ClInclude Include="src\V8\Log.h" />
     <ClInclude Include="src\V8Engine.h" />
+    <ClInclude Include="src\V8\Type.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\V8\Application.cpp" />

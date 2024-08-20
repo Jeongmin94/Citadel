@@ -9,50 +9,58 @@ namespace V8
 {
 // Events in V8Engine are currently blocking
 
+// clang-format off
 enum class EventType
 {
     None = 0,
 
-    // window events
-    WindowClose,
-    WindowResize,
-    WindowFocus,
-    WindowLostFocus,
-    WindowMoved,
+    WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 
-    // application events
-    AppTick,
-    AppUpdate,
-    AppRender,
+    AppTick, AppUpdate, AppRender,
 
-    // keyboard events
-    KeyPressed,
-    KeyReleased,
-    KeyTyped,
+    KeyPressed, KeyReleased, KeyTyped,
 
-    // mouse events
-    MouseMoved,
-    MouseScrolled,
+    MouseMoved, MouseScrolled,
 
-    // mouse button events
-    MouseButtonPressed,
-    MouseButtonReleased,
+    MouseButtonPressed, MouseButtonReleased,
+
 };
 
-enum EventCategory
+enum class EventCategory
 {
-    None = 0,
-    EC_Application = BIT(0),
-    EC_Input = BIT(1),
-    EC_Keyboard = BIT(2),
-    EC_Mouse = BIT(3),
-    EC_MouseButton = BIT(4)
+    None                    = 0,
+    Application             = BIT(0),
+    Input                   = BIT(1),
+    Keyboard                = BIT(2),
+    Mouse                   = BIT(3),
+    MouseButton             = BIT(4),
 };
+
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
+								virtual EventType GetEventType() const override { return GetStaticType(); }\
+								virtual const char* GetName() const override { return #type; /* "type" */ }
+
+#define EVENT_CLASS_CATEGORY(category) virtual uint32 GetCategoryFlags() const override { return static_cast<uint32>(category); }
+
+// clang-format on
 
 class Event
 {
 public:
     virtual ~Event() = default;
+
+    virtual EventType GetEventType() const = 0;
+    virtual const char* GetName() const = 0;
+    virtual int GetCategoryFlags() const = 0;
+    virtual std::string ToString() const { return GetName(); }
+
+public:
+    bool Handled = false;
+
+    bool IsInCategory(EventCategory category) const
+    {
+        return GetCategoryFlags() & static_cast<uint32>(category);
+    }
 };
 
 } // namespace V8
