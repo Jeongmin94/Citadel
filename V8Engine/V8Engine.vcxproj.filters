@@ -4,6 +4,9 @@
     <Filter Include="V8">
       <UniqueIdentifier>{93755900-7F01-880B-E8AF-880BD45A880B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="V8\Events">
+      <UniqueIdentifier>{17BEC68D-8328-7B04-CC66-2CAA38105959}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\V8\Application.h">
@@ -14,6 +17,18 @@
     </ClInclude>
     <ClInclude Include="src\V8\EntryPoint.h">
       <Filter>V8</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Events\ApplicationEvent.h">
+      <Filter>V8\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Events\Event.h">
+      <Filter>V8\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Events\KeyEvent.h">
+      <Filter>V8\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Events\MouseEvent.h">
+      <Filter>V8\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\V8\Log.h">
       <Filter>V8</Filter>

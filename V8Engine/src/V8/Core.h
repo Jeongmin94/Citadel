@@ -9,3 +9,5 @@
 #else
 	#error Currently V8Engine supports only Winodws!
 #endif
+
+#define BIT(x) (1 << x)
