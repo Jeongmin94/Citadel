@@ -1,6 +1,7 @@
 #pragma once
 
 #include "V8/Core.h"
+#include "v8pch.h"
 
 namespace V8
 {
