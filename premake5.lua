@@ -50,7 +50,7 @@ project "V8Engine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"  
 		systemversion "latest"
 
@@ -104,7 +104,7 @@ project "Citadel"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "On"
 		systemversion "latest"
 
