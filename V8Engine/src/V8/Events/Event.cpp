@@ -4,9 +4,10 @@
 
 namespace V8
 {
+
 std::ostream& operator<<(std::ostream& out, const Event& e)
 {
-    out << e.ToString();
-    return out;
+    return out << e.ToString();
 }
+
 } // namespace V8

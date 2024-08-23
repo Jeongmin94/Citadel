@@ -1,11 +1,17 @@
 #include "v8pch.h"
 
+#include "V8/Events/ApplicationEvent.h"
 #include "WindowsWindow.h"
 
 namespace V8
 {
 
 static bool s_GLFWInitialized = false;
+
+static void GLFWErrorCallback(int error, const char* desc)
+{
+    V8_CORE_ERROR("GLFW Error ({0}): {1}", error, desc);
+}
 
 IWindow* IWindow::Create(const WindowProps& props)
 {
@@ -52,6 +58,8 @@ void WindowsWindow::Init(const WindowProps& props)
         int success = glfwInit();
         V8_CORE_ASSERT(success, "Could not be initialize GLFW!");
 
+        glfwSetErrorCallback(GLFWErrorCallback);
+
         s_GLFWInitialized = true;
     }
 
@@ -60,6 +68,29 @@ void WindowsWindow::Init(const WindowProps& props)
     glfwMakeContextCurrent(m_Window);
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
+
+    // Set GLFW callbacks
+    glfwSetWindowSizeCallback(
+        m_Window,
+        [](GLFWwindow* window, int width, int height)
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            data.Width = width;
+            data.Height = height;
+
+            WindowResizeEvent event(width, height);
+            data.EventCallback(event);
+        });
+
+    glfwSetWindowCloseCallback(
+        m_Window,
+        [](GLFWwindow* window)
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+            WindowCloseEvent event;
+            data.EventCallback(event);
+        });
 }
 
 void WindowsWindow::Shutdown() { glfwDestroyWindow(m_Window); }

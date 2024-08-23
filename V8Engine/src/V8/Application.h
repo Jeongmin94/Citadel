@@ -5,6 +5,7 @@
 
 namespace V8
 {
+class WindowCloseEvent;
 
 class V8API Application
 {
@@ -14,9 +15,13 @@ public:
 
     void Run();
 
+    void OnEvent(Event& event);
+
 private:
+    bool OnWindowClose(WindowCloseEvent& e);
+
     std::unique_ptr<IWindow> m_Window;
-    bool m_Running = true;
+    bool m_IsRunning = true;
 };
 
 // DEFINED in CLIENT

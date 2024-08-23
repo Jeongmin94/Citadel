@@ -7,7 +7,7 @@
 namespace V8
 {
 
-class WindowsWindow : public IWindow
+class V8API WindowsWindow : public IWindow
 {
 public:
     WindowsWindow(const WindowProps& props);
