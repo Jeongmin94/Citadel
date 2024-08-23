@@ -7,4 +7,4 @@
 	url = https://github.com/gabime/spdlog
 [submodule "V8Engine/vendor/GLFW"]
 	path = V8Engine/vendor/GLFW
-	url = https://github.com/glfw/glfw.git
+	url = https://github.com/Jeongmin94/glfw
