@@ -14,7 +14,7 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
 
--- include premake files in directory
+-- include premake5.lua files in directory
 include "V8Engine/vendor/GLFW"
 
 project "V8Engine"

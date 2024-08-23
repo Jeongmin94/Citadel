@@ -59,5 +59,8 @@
       <Filter>V8</Filter>
     </ClCompile>
     <ClCompile Include="src\v8pch.cpp" />
+    <ClCompile Include="src\V8\Events\Event.cpp">
+      <Filter>V8\Events</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,10 +1,7 @@
 #pragma once
 
 #include "V8/Core.h"
-#include "v8pch.h"
 #include "V8/Events/Event.h"
-
-//class Event;
 
 namespace V8
 {

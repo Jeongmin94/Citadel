@@ -1,7 +1,8 @@
 #pragma once
 
-#include "V8/Core.h"
 #include "v8pch.h"
+
+#include "V8/Core.h"
 
 namespace V8
 {
@@ -26,7 +27,7 @@ enum class EventType
 
 enum EventCategory
 {
-    None                    = 0,
+    None                       = 0,
     EC_Application             = BIT(0),
     EC_Input                   = BIT(1),
     EC_Keyboard                = BIT(2),
@@ -86,11 +87,5 @@ public:
 private:
     Event& m_Event;
 };
-
-std::ostream& operator<<(std::ostream& out, const Event& e)
-{
-    out << e.ToString();
-    return out;
-}
 
 } // namespace V8
