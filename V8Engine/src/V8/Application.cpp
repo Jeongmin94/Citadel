@@ -8,7 +8,6 @@ namespace V8
 
 Application::Application()
 {
-    //m_Window = std::make_unique<IWindow>(IWindow::Create());
     m_Window = std::unique_ptr<IWindow>(IWindow::Create());
 }
 
