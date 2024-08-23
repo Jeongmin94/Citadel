@@ -18,6 +18,11 @@ project "V8Engine"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	-- for pch use
+	pchheader "v8pch.h"
+	-- for pch create
+	pchsource "V8Engine/src/v8pch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",

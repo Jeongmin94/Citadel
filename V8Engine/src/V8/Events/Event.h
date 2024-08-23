@@ -2,9 +2,6 @@
 
 #include "V8/Core.h"
 
-#include <functional>
-#include <string>
-
 namespace V8
 {
 // Ref: https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Hazel/Events

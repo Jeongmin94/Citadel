@@ -10,6 +10,4 @@
 	#error Currently V8Engine supports only Winodws!
 #endif
 
-#include "Type.h"
-
 #define BIT(x) (1 << x)
