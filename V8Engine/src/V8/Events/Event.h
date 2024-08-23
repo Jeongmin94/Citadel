@@ -7,6 +7,7 @@
 
 namespace V8
 {
+// Ref: https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Hazel/Events
 // Events in V8Engine are currently blocking
 
 // clang-format off
@@ -23,24 +24,25 @@ enum class EventType
     MouseMoved, MouseScrolled,
 
     MouseButtonPressed, MouseButtonReleased,
-
 };
 
-enum class EventCategory
+enum EventCategory
 {
     None                    = 0,
-    Application             = BIT(0),
-    Input                   = BIT(1),
-    Keyboard                = BIT(2),
-    Mouse                   = BIT(3),
-    MouseButton             = BIT(4),
+    EC_Application             = BIT(0),
+    EC_Input                   = BIT(1),
+    EC_Keyboard                = BIT(2),
+    EC_Mouse                   = BIT(3),
+    EC_MouseButton             = BIT(4),
 };
 
-#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\
-								virtual EventType GetEventType() const override { return GetStaticType(); }\
-								virtual const char* GetName() const override { return #type; /* "type" */ }
+#define EVENT_CLASS_TYPE(type) \
+    static EventType GetStaticType() { return EventType::##type; } \
+    virtual EventType GetEventType() const override { return GetStaticType(); } \
+    virtual const char* GetName() const override { return #type; /* "type" */ }
 
-#define EVENT_CLASS_CATEGORY(category) virtual uint32 GetCategoryFlags() const override { return static_cast<uint32>(category); }
+#define EVENT_CLASS_CATEGORY(category) \
+    virtual uint8 GetCategoryFlags() const override { return static_cast<uint8>(category); }
 
 // clang-format on
 
@@ -51,22 +53,22 @@ public:
 
     virtual EventType GetEventType() const = 0;
     virtual const char* GetName() const = 0;
-    virtual uint32 GetCategoryFlags() const = 0;
+    virtual uint8 GetCategoryFlags() const = 0;
     virtual std::string ToString() const { return GetName(); }
 
 public:
-    bool _handled = false;
+    bool IsHandled = false;
 
     bool IsInCategory(EventCategory category) const
     {
-        return GetCategoryFlags() & static_cast<uint32>(category);
+        return GetCategoryFlags() & static_cast<uint8>(category);
     }
 };
 
 class EventDispatcher
 {
 public:
-    EventDispatcher(Event& event) : _event(event) {}
+    EventDispatcher(Event& event) : DispatchedEvent(event) {}
 
     template <typename T>
     using EventFn = std::function<bool>(T&);
@@ -74,9 +76,9 @@ public:
     template <typename T>
     bool Dispatch(EventFn<T> func)
     {
-        if (_event.GetEventType() == T::GetStaticType())
+        if (DispatchedEvent.GetEventType() == T::GetStaticType())
         {
-            _event._handled = func(static_cast<T&>(_event));
+            DispatchedEvent.IsHandled = func(static_cast<T&>(DispatchedEvent));
             return true;
         }
 
@@ -84,7 +86,7 @@ public:
     }
 
 private:
-    Event& _event;
+    Event& DispatchedEvent;
 };
 
 std::ostream& operator<<(std::ostream& out, const Event& e)

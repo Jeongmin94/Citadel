@@ -7,16 +7,15 @@ namespace V8
 class WindowResizeEvent : public Event
 {
 public:
-    WindowResizeEvent(uint32 width, uint32 height)
+    WindowResizeEvent(uint16 width, uint16 height)
         : _width(width), _height(height)
     {
     }
 
     EVENT_CLASS_TYPE(WindowResize);
-    EVENT_CLASS_CATEGORY(EventCategory::Application |
-                         EventCategory::Keyboard);
+    EVENT_CLASS_CATEGORY(EC_Application | EC_Keyboard);
 
 private:
-    uint32 _width, _height;
+    uint16 _width, _height;
 };
 } // namespace V8

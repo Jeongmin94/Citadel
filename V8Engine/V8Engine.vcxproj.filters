@@ -33,6 +33,9 @@
     <ClInclude Include="src\V8\Log.h">
       <Filter>V8</Filter>
     </ClInclude>
+    <ClInclude Include="src\V8\Type.h">
+      <Filter>V8</Filter>
+    </ClInclude>
     <ClInclude Include="src\V8Engine.h" />
     <ClInclude Include="src\V8\Type.h" />
   </ItemGroup>
