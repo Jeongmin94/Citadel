@@ -55,7 +55,7 @@ public:
     virtual std::string ToString() const { return GetName(); }
 
 public:
-    bool IsHandled = false;
+    bool m_isHandled = false;
 
     bool IsInCategory(EventCategory category) const
     {
@@ -66,7 +66,7 @@ public:
 class EventDispatcher
 {
 public:
-    EventDispatcher(Event& event) : DispatchedEvent(event) {}
+    EventDispatcher(Event& event) : m_Event(event) {}
 
     template <typename T>
     using EventFn = std::function<bool>(T&);
@@ -74,9 +74,9 @@ public:
     template <typename T>
     bool Dispatch(EventFn<T> func)
     {
-        if (DispatchedEvent.GetEventType() == T::GetStaticType())
+        if (m_Event.GetEventType() == T::GetStaticType())
         {
-            DispatchedEvent.IsHandled = func(static_cast<T&>(DispatchedEvent));
+            m_Event.m_isHandled = func(static_cast<T&>(m_Event));
             return true;
         }
 
@@ -84,7 +84,7 @@ public:
     }
 
 private:
-    Event& DispatchedEvent;
+    Event& m_Event;
 };
 
 std::ostream& operator<<(std::ostream& out, const Event& e)

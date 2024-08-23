@@ -13,6 +13,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "V8/Log.h"
+
 // clang-format off
 
 #ifdef V8_PLATFORM_WINDOWS

@@ -8,7 +8,14 @@ workspace "Citadel"
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"  
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" 
+
+-- Include directories relative to root folder(solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
+
+-- include premake files in directory
+include "V8Engine/vendor/GLFW"
 
 project "V8Engine"
 	location "V8Engine" 
@@ -32,7 +39,14 @@ project "V8Engine"
 	includedirs
 	{
 		"%{prj.name}/vendor/spdlog/include",
-		"%{prj.name}/src"
+		"%{prj.name}/src",
+		"%{IncludeDir.GLFW}",
+	}
+
+	links
+	{
+		"GLFW",			-- project GLFW
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -43,7 +57,8 @@ project "V8Engine"
 		defines
 		{
 			"V8_PLATFORM_WINDOWS", 
-			"V8_BUILD_DLL"
+			"V8_BUILD_DLL",
+			"V8_ENABLE_ASSERTS"
 		}
 
 	postbuildcommands
