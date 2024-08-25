@@ -3,8 +3,13 @@
 #include "V8/Events/ApplicationEvent.h"
 #include "WindowsWindow.h"
 
+#include <GLFW/glfw3.h>
+
 namespace V8
 {
+/*
+ * TODO: support DirectX and Win32API
+ */
 
 static bool s_GLFWInitialized = false;
 

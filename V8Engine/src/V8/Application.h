@@ -1,10 +1,14 @@
 #pragma once
 
-#include "Core.h"
-#include "Window.h"
+#include "V8/Core/Core.h"
+
+#include <memory>
 
 namespace V8
 {
+
+class IWindow;
+class Event;
 class WindowCloseEvent;
 
 class V8API Application

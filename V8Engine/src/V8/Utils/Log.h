@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core.h"
+#include "V8/Core/Core.h"
 #include "spdlog/spdlog.h"
 
 namespace V8

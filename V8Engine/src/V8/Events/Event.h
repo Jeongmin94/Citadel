@@ -2,7 +2,7 @@
 
 #include "v8pch.h"
 
-#include "V8/Core.h"
+#include "V8/Core/Core.h"
 
 namespace V8
 {

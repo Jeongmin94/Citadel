@@ -1,6 +1,6 @@
 #pragma once
 
-#include "V8/Core.h"
+#include "V8/Core/Core.h"
 #include "V8/Events/Event.h"
 
 namespace V8

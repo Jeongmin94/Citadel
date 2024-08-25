@@ -13,7 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "V8/Log.h"
+#include "V8/Utils/Log.h"
 
 // clang-format off
 

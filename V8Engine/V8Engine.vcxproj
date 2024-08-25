@@ -154,14 +154,14 @@
   <ItemGroup>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\V8\Application.h" />
-    <ClInclude Include="src\V8\Core.h" />
-    <ClInclude Include="src\V8\EntryPoint.h" />
+    <ClInclude Include="src\V8\Core\Core.h" />
+    <ClInclude Include="src\V8\Core\EntryPoint.h" />
     <ClInclude Include="src\V8\Events\ApplicationEvent.h" />
     <ClInclude Include="src\V8\Events\Event.h" />
     <ClInclude Include="src\V8\Events\KeyEvent.h" />
     <ClInclude Include="src\V8\Events\MouseEvent.h" />
-    <ClInclude Include="src\V8\Log.h" />
-    <ClInclude Include="src\V8\Window.h" />
+    <ClInclude Include="src\V8\Utils\Log.h" />
+    <ClInclude Include="src\V8\Core\Window.h" />
     <ClInclude Include="src\V8Engine.h" />
     <ClInclude Include="src\v8pch.h" />
   </ItemGroup>
@@ -169,7 +169,7 @@
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\V8\Application.cpp" />
     <ClCompile Include="src\V8\Events\Event.cpp" />
-    <ClCompile Include="src\V8\Log.cpp" />
+    <ClCompile Include="src\V8\Utils\Log.cpp" />
     <ClCompile Include="src\v8pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

@@ -1,8 +1,8 @@
 #pragma once
 
-#include "V8/Window.h"
+#include "V8/Core/Window.h"
 
-#include <GLFW/glfw3.h>
+class GLFWwindow;
 
 namespace V8
 {
