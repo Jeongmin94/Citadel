@@ -62,7 +62,8 @@ project "V8Engine"
 		{
 			"V8_PLATFORM_WINDOWS", 
 			"V8_BUILD_DLL",
-			"V8_ENABLE_ASSERTS"
+			"V8_ENABLE_ASSERTS",
+			"GLFW_INCLUDE_NONE",
 		}
 
 	postbuildcommands

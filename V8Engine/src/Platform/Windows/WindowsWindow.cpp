@@ -4,6 +4,7 @@
 #include "WindowsWindow.h"
 
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace V8
 {
@@ -71,6 +72,8 @@ void WindowsWindow::Init(const WindowProps& props)
     m_Window = glfwCreateWindow((uint32)props.Width, (uint32)props.Height,
                                 m_Data.Title.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(m_Window);
+    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    V8_CORE_ASSERT(status, "Failed to initialize Glad!");
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
 
