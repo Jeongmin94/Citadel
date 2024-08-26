@@ -47,6 +47,8 @@
     </ClInclude>
     <ClInclude Include="src\V8Engine.h" />
     <ClInclude Include="src\v8pch.h" />
+    <ClInclude Include="src\V8\Core\Layer.h" />
+    <ClInclude Include="src\V8\Core\LayerStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
@@ -62,5 +64,7 @@
       <Filter>V8</Filter>
     </ClCompile>
     <ClCompile Include="src\v8pch.cpp" />
+    <ClCompile Include="src\V8\Core\Layer.cpp" />
+    <ClCompile Include="src\V8\Core\LayerStack.cpp" />
   </ItemGroup>
 </Project>

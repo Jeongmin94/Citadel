@@ -152,6 +152,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\V8\Core\LayerStack.h" />
+    <ClInclude Include="src\V8\Core\Layer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\V8\Application.h" />
     <ClInclude Include="src\V8\Core\Core.h" />
@@ -166,6 +168,8 @@
     <ClInclude Include="src\v8pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\V8\Core\LayerStack.cpp" />
+    <ClCompile Include="src\V8\Core\Layer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\V8\Application.cpp" />
     <ClCompile Include="src\V8\Events\Event.cpp" />

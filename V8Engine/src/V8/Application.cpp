@@ -1,8 +1,9 @@
 #include "v8pch.h"
 
 #include "Application.h"
-#include "V8/Events/ApplicationEvent.h"
+#include "V8/Core/Layer.h"
 #include "V8/Core/Window.h"
+#include "V8/Events/ApplicationEvent.h"
 
 #include <GLFW/glfw3.h>
 
@@ -19,6 +20,8 @@ Application::Application()
 {
     m_Window = std::unique_ptr<IWindow>(IWindow::Create());
     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
+    m_LayerStack = LayerStack();
 }
 
 Application::~Application() {}
@@ -29,6 +32,11 @@ void Application::Run()
     {
         glClearColor(1, 0, 1, 1);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        for (Layer* layer : m_LayerStack)
+        {
+            layer->OnUpdate();
+        }
         m_Window->OnUpdate();
     }
 }
@@ -37,14 +45,28 @@ void Application::OnEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
     dispatcher.Dispatch<WindowCloseEvent>(
-        [&](WindowCloseEvent& e)
-        {
-            m_IsRunning = false;
-            return true;
-        });
+        BIND_EVENT_FN(Application::OnWindowClose));
+    // dispatcher.Dispatch<WindowCloseEvent>(
+    //     [&](WindowCloseEvent& e)
+    //     {
+    //         m_IsRunning = false;
+    //         return true;
+    //     });
+
+    for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();)
+    {
+        (*it)->OnEvent(event);
+        --it;
+        if (event.m_isHandled)
+            break;
+    }
 
     V8_CORE_TRACE("{0}", event.ToString());
 }
+
+void Application::PushLayer(Layer* layer) { m_LayerStack.PopLayer(layer); }
+
+void Application::PushOverlay(Layer* layer) { m_LayerStack.PushOverlay(layer); }
 
 bool Application::OnWindowClose(WindowCloseEvent& e)
 {
