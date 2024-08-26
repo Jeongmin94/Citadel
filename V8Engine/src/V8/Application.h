@@ -1,7 +1,6 @@
 #pragma once
 
 #include "V8/Core/Core.h"
-#include "V8/Core/LayerStack.h"
 
 #include <memory>
 
@@ -13,6 +12,7 @@ class Event;
 class WindowCloseEvent;
 
 class Layer;
+class LayerStack;
 
 class V8API Application
 {
@@ -32,7 +32,7 @@ private:
 
     std::unique_ptr<IWindow> m_Window;
     bool m_IsRunning = true;
-    LayerStack m_LayerStack;
+    LayerStack* m_LayerStack;
 };
 
 // DEFINED in CLIENT
