@@ -10,8 +10,14 @@
     <Filter Include="V8">
       <UniqueIdentifier>{93755900-7F01-880B-E8AF-880BD45A880B}</UniqueIdentifier>
     </Filter>
+    <Filter Include="V8\Core">
+      <UniqueIdentifier>{CB0DEA65-37ED-6801-4005-F4D7AC63CF62}</UniqueIdentifier>
+    </Filter>
     <Filter Include="V8\Events">
       <UniqueIdentifier>{17BEC68D-8328-7B04-CC66-2CAA38105959}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="V8\Utils">
+      <UniqueIdentifier>{33197424-1FE6-CE2F-48FF-BCD7342B04BE}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,10 +28,19 @@
       <Filter>V8</Filter>
     </ClInclude>
     <ClInclude Include="src\V8\Core\Core.h">
-      <Filter>V8</Filter>
+      <Filter>V8\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\V8\Core\EntryPoint.h">
-      <Filter>V8</Filter>
+      <Filter>V8\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Core\Layer.h">
+      <Filter>V8\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Core\LayerStack.h">
+      <Filter>V8\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\V8\Core\Window.h">
+      <Filter>V8\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\V8\Events\ApplicationEvent.h">
       <Filter>V8\Events</Filter>
@@ -40,15 +55,10 @@
       <Filter>V8\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\V8\Utils\Log.h">
-      <Filter>V8</Filter>
-    </ClInclude>
-    <ClInclude Include="src\V8\Core\Window.h">
-      <Filter>V8</Filter>
+      <Filter>V8\Utils</Filter>
     </ClInclude>
     <ClInclude Include="src\V8Engine.h" />
     <ClInclude Include="src\v8pch.h" />
-    <ClInclude Include="src\V8\Core\Layer.h" />
-    <ClInclude Include="src\V8\Core\LayerStack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
@@ -57,14 +67,18 @@
     <ClCompile Include="src\V8\Application.cpp">
       <Filter>V8</Filter>
     </ClCompile>
+    <ClCompile Include="src\V8\Core\Layer.cpp">
+      <Filter>V8\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\V8\Core\LayerStack.cpp">
+      <Filter>V8\Core</Filter>
+    </ClCompile>
     <ClCompile Include="src\V8\Events\Event.cpp">
       <Filter>V8\Events</Filter>
     </ClCompile>
     <ClCompile Include="src\V8\Utils\Log.cpp">
-      <Filter>V8</Filter>
+      <Filter>V8\Utils</Filter>
     </ClCompile>
     <ClCompile Include="src\v8pch.cpp" />
-    <ClCompile Include="src\V8\Core\Layer.cpp" />
-    <ClCompile Include="src\V8\Core\LayerStack.cpp" />
   </ItemGroup>
 </Project>
