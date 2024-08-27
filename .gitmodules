@@ -1,11 +1,15 @@
 # git submodule deinit –all -f
-# git submodule update –init –recursive
+# git submodule update -–init -–recursive
 # git submodule sync
-# git submoudle update
+# git submodule update
 [submodule "V8Engine/vendor/spdlog"]
 	path = V8Engine/vendor/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "V8Engine/vendor/GLFW"]
 	path = V8Engine/vendor/GLFW
 	url = https://github.com/Jeongmin94/glfw
+	branch = Citadel
+[submodule "V8Engine/vendor/ImGui"]
+	path = V8Engine/vendor/ImGui
+	url = https://github.com/Jeongmin94/imgui.git
 	branch = Citadel
