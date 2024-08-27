@@ -31,7 +31,8 @@ int main(int argc, char** argv)
     V8::Log::Reset();
 
 #ifdef CITADEL_DEBUG
-    _CrtDumpMemoryLeaks();
+    // https://stackoverflow.com/questions/2323458/how-to-ignore-false-positive-memory-leaks-from-crtdumpmemoryleaks
+    //_CrtDumpMemoryLeaks();5
 #endif
 
     return 0;
