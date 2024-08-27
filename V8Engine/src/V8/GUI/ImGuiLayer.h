@@ -4,7 +4,7 @@
 
 namespace V8
 {
-class ImGuiLayer : public Layer
+class V8API ImGuiLayer : public Layer
 {
 public:
     ImGuiLayer();

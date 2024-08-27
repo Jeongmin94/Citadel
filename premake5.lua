@@ -68,6 +68,7 @@ project "V8Engine"
 			"V8_BUILD_DLL",
 			"V8_ENABLE_ASSERTS",
 			"GLFW_INCLUDE_NONE",
+			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 		}
 
 	postbuildcommands
@@ -77,14 +78,17 @@ project "V8Engine"
 
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CITADEL_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CITADEL_DIST"
+		buildoptions "/MD"
 		optimize "On"
 
 project "Citadel"
@@ -124,12 +128,15 @@ project "Citadel"
 
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "CITADEL_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "CITADEL_DIST"
+		buildoptions "/MD"
 		optimize "On"

@@ -64,11 +64,16 @@ void Application::OnEvent(Event& event)
     V8_CORE_TRACE("{0}", event.ToString());
 }
 
-void Application::PushLayer(Layer* layer) { m_LayerStack->PopLayer(layer); }
+void Application::PushLayer(Layer* layer)
+{
+    m_LayerStack->PopLayer(layer);
+    layer->OnAttach();
+}
 
 void Application::PushOverlay(Layer* layer)
 {
     m_LayerStack->PushOverlay(layer);
+    layer->OnAttach();
 }
 
 bool Application::OnWindowClose(WindowCloseEvent& e)

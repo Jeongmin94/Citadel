@@ -3,7 +3,7 @@
 class CitadelSandBox : public V8::Application
 {
 public:
-    CitadelSandBox() {}
+    CitadelSandBox() { PushLayer(new V8::ImGuiLayer()); }
     ~CitadelSandBox() override{};
 };
 
