@@ -14,11 +14,12 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
 IncludeDir["Glad"] = "V8Engine/vendor/Glad/include"
-IncludeDir["ImGui"] = "V8Engine/vendor/ImGui/include"
+IncludeDir["ImGui"] = "V8Engine/vendor/ImGui"
 
 -- include premake5.lua files in directory
 include "V8Engine/vendor/GLFW"
 include "V8Engine/vendor/Glad"
+include "V8Engine/vendor/ImGui"
 
 project "V8Engine"
 	location "V8Engine" 
@@ -45,12 +46,14 @@ project "V8Engine"
 		"%{prj.name}/src",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
 	}
 
 	links
 	{
 		"GLFW",			-- project GLFW
 		"Glad", 		-- project Glad
+		"ImGui",		-- project ImGui
 		"opengl32.lib"
 	}
 
