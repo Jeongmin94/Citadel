@@ -8,3 +8,4 @@
 [submodule "V8Engine/vendor/GLFW"]
 	path = V8Engine/vendor/GLFW
 	url = https://github.com/Jeongmin94/glfw
+	branch = Citadel
