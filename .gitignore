@@ -37,6 +37,7 @@ bld/
 [Bb]in-int/
 [Bb]uild/
 !vendor/**
+*.sln
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
