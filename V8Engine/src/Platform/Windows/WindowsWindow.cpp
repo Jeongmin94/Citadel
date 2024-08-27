@@ -101,6 +101,12 @@ void WindowsWindow::Init(const WindowProps& props)
         });
 }
 
-void WindowsWindow::Shutdown() { glfwDestroyWindow(m_Window); }
+void WindowsWindow::Shutdown()
+{
+    glfwDestroyWindow(m_Window);
+
+    // !TODO: glfwTerminate must be called when all glfw window are closed
+    glfwTerminate();
+}
 
 } // namespace V8

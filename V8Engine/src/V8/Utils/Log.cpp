@@ -1,5 +1,5 @@
-#include "v8pch.h"
 #include "Log.h"
+#include "v8pch.h"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 
@@ -18,6 +18,13 @@ void Log::Init()
 
     s_ClientLogger = spdlog::stdout_color_mt("APP");
     s_ClientLogger->set_level(spdlog::level::trace);
+}
+
+void Log::Reset()
+{
+    s_CoreLogger.reset();
+    s_ClientLogger.reset();
+    spdlog::shutdown();
 }
 
 } // namespace V8

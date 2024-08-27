@@ -8,7 +8,7 @@ class V8API ImGuiLayer : public Layer
 {
 public:
     ImGuiLayer();
-    ~ImGuiLayer();
+    virtual ~ImGuiLayer() override;
 
     virtual void OnAttach() override;
     virtual void OnDetach() override;
@@ -16,5 +16,6 @@ public:
     virtual void OnEvent(Event& event) override;
 
 private:
+    float m_Time = 0.0f;
 };
 } // namespace V8

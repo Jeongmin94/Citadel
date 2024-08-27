@@ -13,6 +13,7 @@ class V8API Log
 {
 public:
     static void Init();
+    static void Reset();
 
     inline static std::shared_ptr<spdlog::logger>& GetCoreLogger()
     {
