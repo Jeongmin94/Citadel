@@ -12,6 +12,10 @@
 	#error Currently V8Engine supports only Winodws!
 #endif
 
+#ifdef CITADEL_DEBUG
+	#define V8_ENABLE_ASSERTS
+#endif
+
 #ifdef V8_ENABLE_ASSERTS
 	#define V8_ASSERT(x, ...) if(!(x)) { V8_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}
 	#define V8_CORE_ASSERT(x, ...) if(!(x)) { V8_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}
