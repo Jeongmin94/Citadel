@@ -16,7 +16,7 @@ ImGuiLayer::~ImGuiLayer()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui::DestroyContext();
-    //glfwTerminate();
+    // glfwTerminate(); this must be called when the last glfwWindow's closing!
 }
 
 // ref: ImGui/examples/example_glfw_opengl3/main.cpp
@@ -53,6 +53,7 @@ void ImGuiLayer::OnAttach()
     io.KeyMap[ImGuiKey_Z]               = GLFW_KEY_Z;
     // clang-format on
 
+    V8_CORE_INFO("ImGui Version: {0}", IMGUI_VERSION);
     ImGui_ImplOpenGL3_Init("#version 410");
 }
 
