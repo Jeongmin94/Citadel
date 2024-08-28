@@ -9,3 +9,7 @@
 	path = V8Engine/vendor/GLFW
 	url = https://github.com/Jeongmin94/glfw
 	branch = Citadel
+[submodule "V8Engine/vendor/ImGui"]
+	path = V8Engine/vendor/ImGui
+	url = https://github.com/Jeongmin94/imgui.git
+	branch = Citadel
