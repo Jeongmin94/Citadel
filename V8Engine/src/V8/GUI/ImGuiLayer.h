@@ -1,6 +1,9 @@
 #pragma once
 
 #include "V8/Core/Layer.h"
+#include "V8/Events/ApplicationEvent.h"
+#include "V8/Events/KeyEvent.h"
+#include "V8/Events/MouseEvent.h"
 
 namespace V8
 {
@@ -16,9 +19,18 @@ public:
     virtual void OnEvent(Event& e) override;
 
 private:
-    void OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+    bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
+    bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
+    bool OnMouseMovedEvent(MouseMovedEvent& e);
+    bool OnMouseScrolledEvent(MouseScrolledEvent& e);
+
+    bool OnKeyPressedEvent(KeyPressedEvent& e);
+    bool OnKeyReleasedEvent(KeyReleasedEvent& e);
+    bool OnKeyTypedEvent(KeyTypedEvent& e);
+
+    bool OnWindowResizedEvent(WindowResizedEvent& e);
 
 private:
-    float m_Time = 0.0f;
+    float32 m_Time = 0.0f;
 };
 } // namespace V8

@@ -86,7 +86,7 @@ void WindowsWindow::Init(const WindowProps& props)
             data.Width = width;
             data.Height = height;
 
-            WindowResizeEvent event(width, height);
+            WindowResizedEvent event(width, height);
             data.EventCallback(event);
         });
 
@@ -96,7 +96,7 @@ void WindowsWindow::Init(const WindowProps& props)
         {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-            WindowCloseEvent event;
+            WindowClosedEvent event;
             data.EventCallback(event);
         });
 }

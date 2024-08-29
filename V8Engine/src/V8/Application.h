@@ -9,7 +9,7 @@ namespace V8
 
 class IWindow;
 class Event;
-class WindowCloseEvent;
+class WindowClosedEvent;
 
 class Layer;
 class LayerStack;
@@ -31,7 +31,7 @@ public:
     inline IWindow& GetWindow() { return *m_Window; }
 
 private:
-    bool OnWindowClose(WindowCloseEvent& e);
+    bool OnWindowClose(WindowClosedEvent& e);
 
     std::unique_ptr<IWindow> m_Window;
     bool m_IsRunning = true;

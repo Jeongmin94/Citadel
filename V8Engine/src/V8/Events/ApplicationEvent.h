@@ -4,10 +4,10 @@
 
 namespace V8
 {
-class WindowResizeEvent : public Event
+class WindowResizedEvent : public Event
 {
 public:
-    WindowResizeEvent(uint16 width, uint16 height)
+    WindowResizedEvent(uint16 width, uint16 height)
         : m_Width(width), m_Height(height)
     {
     }
@@ -15,23 +15,23 @@ public:
     std::string ToString() const override
     {
         std::stringstream ss;
-        ss << "WindowResizeEvent:" << m_Width << ", " << m_Height;
+        ss << "WindowResizedEvent:" << m_Width << ", " << m_Height;
         return ss.str();
     }
 
-    EVENT_CLASS_TYPE(WindowResize);
-    EVENT_CLASS_CATEGORY(EC_Application | EC_Keyboard);
+    EVENT_CLASS_TYPE(WindowResize)
+    EVENT_CLASS_CATEGORY(EC_Application | EC_Keyboard)
 
 private:
     uint16 m_Width, m_Height;
 };
 
-class WindowCloseEvent : public Event
+class WindowClosedEvent : public Event
 {
 public:
-    WindowCloseEvent(){};
+    WindowClosedEvent(){};
 
-    EVENT_CLASS_TYPE(WindowClose);
-    EVENT_CLASS_CATEGORY(EC_Application);
+    EVENT_CLASS_TYPE(WindowClose)
+    EVENT_CLASS_CATEGORY(EC_Application)
 };
 } // namespace V8

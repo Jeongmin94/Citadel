@@ -24,10 +24,10 @@ Application::Application()
     V8_CORE_ASSERT(!s_Instance, "Application already exists!");
     s_Instance = this;
 
-     m_Window = std::unique_ptr<IWindow>(IWindow::Create());
-     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+    m_Window = std::unique_ptr<IWindow>(IWindow::Create());
+    m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
-     m_LayerStack = new LayerStack;
+    m_LayerStack = new LayerStack;
 }
 
 Application::~Application()
@@ -38,10 +38,10 @@ Application::~Application()
 
 void Application::Run()
 {
-     while (m_IsRunning)
+    while (m_IsRunning)
     {
-         glClearColor(1, 0, 1, 1);
-         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1, 0, 1, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
 
         for (Layer* layer : *m_LayerStack)
         {
@@ -54,7 +54,7 @@ void Application::Run()
 void Application::OnEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
-    dispatcher.Dispatch<WindowCloseEvent>(
+    dispatcher.Dispatch<WindowClosedEvent>(
         BIND_EVENT_FN(Application::OnWindowClose));
     // dispatcher.Dispatch<WindowCloseEvent>(
     //     [&](WindowCloseEvent& e)
@@ -85,7 +85,7 @@ void Application::PushOverlay(Layer* layer)
     layer->OnAttach();
 }
 
-bool Application::OnWindowClose(WindowCloseEvent& e)
+bool Application::OnWindowClose(WindowClosedEvent& e)
 {
     m_IsRunning = false;
     return true;

@@ -1,7 +1,7 @@
 #include "v8pch.h"
 
-#include "V8/Core/Layer.h"
 #include "LayerStack.h"
+#include "V8/Core/Layer.h"
 
 namespace V8
 {
@@ -13,9 +13,14 @@ LayerStack::~LayerStack()
     for (Layer* layer : m_Layers)
     {
         if (layer)
+        {
+            layer->OnDetach();
             delete layer;
+        }
         else
+        {
             V8_CORE_ERROR("layer is invalid");
+        }
     }
 }
 

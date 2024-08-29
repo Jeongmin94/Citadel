@@ -66,7 +66,7 @@ void ImGuiLayer::OnUpdate()
     io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(),
                             (float)app.GetWindow().GetHeight());
 
-    float time = (float)glfwGetTime();
+    float32 time = (float32)glfwGetTime();
     io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
     m_Time = time;
 
@@ -81,4 +81,20 @@ void ImGuiLayer::OnUpdate()
 }
 
 void ImGuiLayer::OnEvent(Event& e) {}
+
+bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
+{
+    return false;
+}
+bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
+{
+    return false;
+}
+bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e) { return false; }
+bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e) { return false; }
+bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e) { return false; }
+bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e) { return false; }
+bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e) { return false; }
+bool ImGuiLayer::OnWindowResizedEvent(WindowResizedEvent& e) { return false; }
+
 } // namespace V8
