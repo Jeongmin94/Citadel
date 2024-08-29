@@ -4,7 +4,7 @@
 
 namespace V8
 {
-class V8API WindowResizeEvent : public Event
+class WindowResizeEvent : public Event
 {
 public:
     WindowResizeEvent(uint16 width, uint16 height)
@@ -26,7 +26,7 @@ private:
     uint16 m_Width, m_Height;
 };
 
-class V8API WindowCloseEvent : public Event
+class WindowCloseEvent : public Event
 {
 public:
     WindowCloseEvent(){};

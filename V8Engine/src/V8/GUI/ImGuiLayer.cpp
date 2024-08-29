@@ -80,5 +80,5 @@ void ImGuiLayer::OnUpdate()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-void ImGuiLayer::OnEvent(Event& event) {}
+void ImGuiLayer::OnEvent(Event& e) {}
 } // namespace V8
