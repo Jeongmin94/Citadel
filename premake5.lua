@@ -14,10 +14,21 @@ project "BulletFarm"
 	location "BulletFarm"
 	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
+	}
+
+	includedirs
+	{
+		"%{prj.name}/src",
+	}
 
 	filter "system:windows"
 		cppdialect "C++20"
@@ -27,11 +38,6 @@ project "BulletFarm"
 		{
 			"V8_PLATFORM_WINDOWS", 
 		}
-
-	postbuildcommands
-	{
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Citadel")
-	}
 
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"
@@ -92,7 +98,7 @@ project "V8Engine"
 
 	links
 	{
-		"BulletFarm",
+		-- "BulletFarm",
 		"GLFW",			-- project GLFW
 		"Glad", 		-- project Glad
 		"ImGui",		-- project ImGui
@@ -155,8 +161,8 @@ project "Citadel"
 
 	links
 	{
-		"V8Engine",
 		"BulletFarm",
+		"V8Engine",
 	}
 
 	filter "system:windows"
