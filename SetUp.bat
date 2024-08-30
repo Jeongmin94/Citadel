@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 
 REM GLFW premake5
 
-set glfw=GLFWpremake5.lua
+set glfw=Scripts\GLFWpremake5.lua
 set glfwDestination=V8Engine\vendor\GLFW\premake5.lua
 
 echo Init premake5 for GLFW
@@ -27,7 +27,7 @@ if exist "%glfw%" (
 
 REM ImGui premake5
 
-set imgui=ImGuipremake5.lua
+set imgui=Scripts\ImGuipremake5.lua
 set imguiDestination=V8Engine\vendor\ImGui\premake5.lua
 
 echo Init premake5 for ImGui

@@ -12,7 +12,8 @@
 #include <unordered_set>
 #include <vector>
 
-#include "V8/Core/Types.h"
+#include <BulletFarm.h>
+
 #include "V8/Utils/Log.h"
 
 // clang-format off

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "V8/Core/Types.h"
+#include <BulletFarm.h>
 
 namespace V8
 {
