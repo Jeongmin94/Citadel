@@ -98,7 +98,7 @@ project "V8Engine"
 
 	links
 	{
-		-- "BulletFarm",
+		"BulletFarm",
 		"GLFW",			-- project GLFW
 		"Glad", 		-- project Glad
 		"ImGui",		-- project ImGui
