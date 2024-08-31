@@ -47,6 +47,7 @@ enum EventCategory
 
 class Event
 {
+
 public:
     virtual ~Event() = default;
 
