@@ -8,11 +8,18 @@ public: \
     using This = _type; \
 \
 public: \
-    static Type& StaticType() \
+    static const Type& StaticType() \
     { \
         static Type s_Type(TypeGenerator<This>(#_type)); \
         return s_Type; \
     } \
-
+\
+    virtual const Type& GetType() const \
+    { \
+        return m_Type; \
+    } \
+\
+private: \
+    inline static const Type& m_Type = StaticType(); \
 
 // clang-format on

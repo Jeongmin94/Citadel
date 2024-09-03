@@ -17,7 +17,6 @@ class LayerStack;
 
 class V8API Application
 {
-    GENERATE_TYPE_INFO(Application)
 
 public:
     Application();
