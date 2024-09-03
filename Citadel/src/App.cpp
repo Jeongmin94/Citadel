@@ -2,6 +2,7 @@
 
 class CitadelSandBox : public V8::Application
 {
+    GENERATE_TYPE_INFO(CitadelSandBox)
 public:
     CitadelSandBox() { PushLayer(new V8::ImGuiLayer()); }
     ~CitadelSandBox() override{};

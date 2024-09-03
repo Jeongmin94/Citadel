@@ -1,6 +1,7 @@
 #pragma once
 
 #include "V8/Core/Core.h"
+#include "BulletFarm.h"
 
 #include <memory>
 
@@ -16,6 +17,8 @@ class LayerStack;
 
 class V8API Application
 {
+    GENERATE_TYPE_INFO(Application)
+
 public:
     Application();
     virtual ~Application();
