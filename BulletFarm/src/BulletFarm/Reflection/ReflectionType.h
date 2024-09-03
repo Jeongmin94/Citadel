@@ -72,6 +72,7 @@ public:
         return ss.str();
     }
 
+    const size_t GetTypeHash() const { return m_TypeHash; }
     const Type& GetSuper() const { return *m_Super; }
 
 private:

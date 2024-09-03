@@ -60,11 +60,13 @@ IncludeDir["BulletFarm"] = "BulletFarm/src"
 IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
 IncludeDir["Glad"] = "V8Engine/vendor/Glad/include"
 IncludeDir["ImGui"] = "V8Engine/vendor/ImGui"
+IncludeDir["gtest"] = "UnitTest/vendor/googletest/googletest"
 
 -- include premake5.lua files in directory
 include "V8Engine/vendor/GLFW"
 include "V8Engine/vendor/Glad"
 include "V8Engine/vendor/ImGui"
+include "UnitTest/vendor/googletest"
 
 project "V8Engine"
 	location "V8Engine" 
@@ -119,8 +121,73 @@ project "V8Engine"
 
 	postbuildcommands
 	{
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Citadel")
+		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Citadel"),
+		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/UnitTest")
 	}
+
+	filter "configurations:Debug"
+		defines "CITADEL_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "CITADEL_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "CITADEL_DIST"
+		runtime "Release"
+		optimize "On"
+
+
+project "UnitTest"
+	location "UnitTest"
+	kind "ConsoleApp"
+	language "C++"
+	staticruntime "on"
+
+	pchheader "utpch.h"
+	pchsource "UnitTest/src/utpch.cpp"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+        "%{prj.name}/src/**.cpp",
+	}
+
+	includedirs
+	{
+		"%{prj.name}/src",
+
+		"V8Engine/vendor/spdlog/include",
+		"V8Engine/src",
+		"%{IncludeDir.BulletFarm}",
+
+		-- GoogleTest
+		"%{IncludeDir.gtest}/include",
+		"%{IncludeDir.gtest}", 
+	}
+
+	links
+	{
+		"GoogleTest",
+		"V8Engine",
+		"BulletFarm",
+	}
+
+	filter "system:windows"
+		cppdialect "C++20"
+		systemversion "latest"
+
+		defines
+		{
+			"V8_PLATFORM_WINDOWS",
+			"UNIT_TEST",
+		}
 
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"

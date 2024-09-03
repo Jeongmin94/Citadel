@@ -6,4 +6,6 @@
 #include "V8/Utils/Log.h"
 
 // Entry Point for Client
+#ifndef UNIT_TEST
 #include "V8/Core/EntryPoint.h"
+#endif
