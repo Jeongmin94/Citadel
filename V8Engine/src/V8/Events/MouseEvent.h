@@ -9,6 +9,7 @@ using namespace Mouse;
 
 class MouseMovedEvent : public Event
 {
+    GENERATE_TYPE_INFO(MouseMovedEvent)
 public:
     MouseMovedEvent(const float32& x, const float32& y)
         : m_MouseX(x), m_MouseY(y){};
@@ -32,6 +33,7 @@ private:
 
 class MouseScrolledEvent : public Event
 {
+    GENERATE_TYPE_INFO(MouseScrolledEvent)
 public:
     MouseScrolledEvent(const float32& offsetX, const float32& offsetY)
         : m_OffsetX(offsetX), m_OffsetY(offsetY){};
@@ -55,6 +57,7 @@ private:
 
 class MouseButtonEvent : public Event
 {
+    GENERATE_TYPE_INFO(MouseButtonEvent)
 public:
     MouseCode GetMouseButton() const { return m_Button; }
 
@@ -68,6 +71,7 @@ protected:
 
 class MouseButtonPressedEvent : public MouseButtonEvent
 {
+    GENERATE_TYPE_INFO(MouseButtonPressedEvent)
 public:
     MouseButtonPressedEvent(const MouseCode button) : MouseButtonEvent(button)
     {
@@ -85,6 +89,7 @@ public:
 
 class MouseButtonReleasedEvent : public MouseButtonEvent
 {
+    GENERATE_TYPE_INFO(MouseButtonReleasedEvent)
 public:
     MouseButtonReleasedEvent(const MouseCode button) : MouseButtonEvent(button)
     {

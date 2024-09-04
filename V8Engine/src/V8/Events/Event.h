@@ -4,6 +4,8 @@
 
 #include "V8/Core/Core.h"
 
+#include "BulletFarm.h"
+
 namespace V8
 {
 // Ref: https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Hazel/Events
@@ -47,6 +49,7 @@ enum EventCategory
 
 class Event
 {
+    GENERATE_TYPE_INFO(Event)
 
 public:
     virtual ~Event() = default;

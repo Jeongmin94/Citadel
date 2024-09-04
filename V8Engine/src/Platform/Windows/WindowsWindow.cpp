@@ -1,6 +1,8 @@
 #include "v8pch.h"
 
 #include "V8/Events/ApplicationEvent.h"
+#include "V8/Events/KeyEvent.h"
+#include "V8/Events/MouseEvent.h"
 #include "WindowsWindow.h"
 
 #include <GLFW/glfw3.h>
@@ -77,9 +79,22 @@ void WindowsWindow::Init(const WindowProps& props)
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
 
+    SetWindowCallbacks(m_Window);
+}
+
+void WindowsWindow::Shutdown()
+{
+    glfwDestroyWindow(m_Window);
+
+    // !TODO: glfwTerminate must be called when all glfw window are closed
+    glfwTerminate();
+}
+
+void WindowsWindow::SetWindowCallbacks(GLFWwindow* titleWindow)
+{
     // Set GLFW callbacks
     glfwSetWindowSizeCallback(
-        m_Window,
+        titleWindow,
         [](GLFWwindow* window, int width, int height)
         {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -91,7 +106,7 @@ void WindowsWindow::Init(const WindowProps& props)
         });
 
     glfwSetWindowCloseCallback(
-        m_Window,
+        titleWindow,
         [](GLFWwindow* window)
         {
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -99,14 +114,87 @@ void WindowsWindow::Init(const WindowProps& props)
             WindowClosedEvent event;
             data.EventCallback(event);
         });
-}
 
-void WindowsWindow::Shutdown()
-{
-    glfwDestroyWindow(m_Window);
+    glfwSetKeyCallback(
+        titleWindow,
+        [](GLFWwindow* window, int key, int scancode, int action, int mods)
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-    // !TODO: glfwTerminate must be called when all glfw window are closed
-    glfwTerminate();
+            switch (action)
+            {
+                case GLFW_PRESS:
+                {
+                    KeyPressedEvent event(key, false);
+                    data.EventCallback(event);
+                    break;
+                }
+                case GLFW_RELEASE:
+                {
+                    KeyReleasedEvent event(key);
+                    data.EventCallback(event);
+                    break;
+                }
+                case GLFW_REPEAT:
+                {
+                    KeyPressedEvent event(key, true);
+                    data.EventCallback(event);
+                    break;
+                }
+            }
+        });
+
+    glfwSetCharCallback(titleWindow,
+                        [](GLFWwindow* window, unsigned int keycode)
+                        {
+                            WindowData& data =
+                                *(WindowData*)glfwGetWindowUserPointer(window);
+                            KeyTypedEvent event(keycode);
+                            data.EventCallback(event);
+                        });
+
+    glfwSetMouseButtonCallback(
+        titleWindow,
+        [](GLFWwindow* window, int button, int action, int mods)
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+            switch (action)
+            {
+                case GLFW_PRESS:
+                {
+                    MouseButtonPressedEvent event(button);
+                    data.EventCallback(event);
+                    break;
+                }
+                case GLFW_RELEASE:
+                {
+                    MouseButtonReleasedEvent event(button);
+                    data.EventCallback(event);
+                    break;
+                }
+            }
+        });
+
+    glfwSetScrollCallback(
+        titleWindow,
+        [](GLFWwindow* window, double offsetX, double offsetY)
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+            MouseScrolledEvent event((float32)offsetX, (float32)offsetY);
+            data.EventCallback(event);
+        });
+
+    glfwSetCursorPosCallback(
+        titleWindow,
+        [](GLFWwindow* window, double posX, double posY)
+        {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+            MouseMovedEvent event((float32)posX, (float32)(posY));
+            data.EventCallback(event);
+        });
 }
 
 } // namespace V8

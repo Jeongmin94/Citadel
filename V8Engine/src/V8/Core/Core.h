@@ -27,4 +27,7 @@
 
 #define BIT(x) (1 << x)
 
+// fn(Event)
+#define BIND_EVENT_FN(fn) std::bind(&fn, this, std::placeholders::_1)
+
 // clang-format on

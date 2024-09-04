@@ -11,12 +11,6 @@
 namespace V8
 {
 
-// clang-format off
-#define BIND_EVENT_FN(x) \
-    std::bind(&x, this, std::placeholders::_1)
-
-// clang-format on
-
 Application* Application::s_Instance = nullptr;
 
 Application::Application()
@@ -54,14 +48,9 @@ void Application::Run()
 void Application::OnEvent(Event& event)
 {
     EventDispatcher dispatcher(event);
+    // !TODO: 리플렉션 적용하기
     dispatcher.Dispatch<WindowClosedEvent>(
         BIND_EVENT_FN(Application::OnWindowClose));
-    // dispatcher.Dispatch<WindowCloseEvent>(
-    //     [&](WindowCloseEvent& e)
-    //     {
-    //         m_IsRunning = false;
-    //         return true;
-    //     });
 
     for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();)
     {

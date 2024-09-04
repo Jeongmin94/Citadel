@@ -30,6 +30,9 @@ private:
     virtual void Shutdown();
 
 private:
+    void SetWindowCallbacks(GLFWwindow* titleWindow);
+
+private:
     GLFWwindow* m_Window;
 
     struct WindowData

@@ -9,6 +9,7 @@ using namespace Key;
 
 class KeyEvent : public Event
 {
+    GENERATE_TYPE_INFO(KeyEvent)
 protected:
     KeyEvent(const KeyCode& keycode) : m_KeyCode(keycode) {}
 
@@ -23,6 +24,7 @@ protected:
 
 class KeyPressedEvent : public KeyEvent
 {
+    GENERATE_TYPE_INFO(KeyPressedEvent)
 public:
     KeyPressedEvent(const KeyCode& keycode, bool isRepeat = false)
         : KeyEvent(keycode), m_IsRepeat(isRepeat)
@@ -47,6 +49,7 @@ private:
 
 class KeyReleasedEvent : public KeyEvent
 {
+    GENERATE_TYPE_INFO(KeyReleasedEvent)
 public:
     KeyReleasedEvent(const KeyCode& keycode) : KeyEvent(keycode) {}
 
@@ -62,6 +65,7 @@ public:
 
 class KeyTypedEvent : public KeyEvent
 {
+    GENERATE_TYPE_INFO(KeyTypedEvent)
 public:
     KeyTypedEvent(const KeyCode& keycode) : KeyEvent(keycode) {}
 
