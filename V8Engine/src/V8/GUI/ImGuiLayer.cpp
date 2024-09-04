@@ -82,11 +82,21 @@ void ImGuiLayer::OnUpdate()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-std::unordered_map<Type, std::function<void(Event&)>> funcMap;
+using TypeHash = size_t;
+std::unordered_map<TypeHash, std::function<void(Event&)>> funcMap;
 
 void ImGuiLayer::OnEvent(Event& e)
 {
     EventDispatcher dispatcher(e);
+
+    V8_CORE_INFO("{0}", e.StaticType().ToString());
+    V8_CORE_INFO("{0}", e.GetType().ToString());
+
+    if (funcMap.find(e.GetType().GetTypeHash()) != funcMap.end())
+    {
+        funcMap[e.GetType().GetTypeHash()](e);
+    }
+
 
     dispatcher.Dispatch<MouseMovedEvent>(
         BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));

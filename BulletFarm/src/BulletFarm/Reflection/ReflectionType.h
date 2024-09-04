@@ -35,7 +35,7 @@ struct TypeGenerator
     {
         if constexpr (Reflection::HasSuper<T>)
         {
-            m_SuperType = &(T::Super::StaticType());
+            m_SuperType = &(typename T::Super::StaticType());
         }
         else
         {
@@ -55,7 +55,7 @@ private:
     Type& operator=(const Type& ref) = delete;
 
 public:
-    template <typename T>
+    template<typename T>
     explicit Type(const TypeGenerator<T>& _generator)
     {
         m_Name = _generator.m_Name;
