@@ -39,6 +39,9 @@ public:
     virtual void SetVSync(bool isEnabled) = 0;
     virtual bool IsVSync() const = 0;
 
+    // return type is void*, for support any other gui window
+    virtual void* GetNativeWindow() const = 0;
+
     // implementation of this functions is defined in IWindow's implementation
     static IWindow* Create(const WindowProps& props = WindowProps());
 };

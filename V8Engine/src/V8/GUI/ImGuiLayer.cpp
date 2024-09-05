@@ -14,12 +14,7 @@ namespace V8
 {
 ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
 
-ImGuiLayer::~ImGuiLayer()
-{
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui::DestroyContext();
-    // glfwTerminate(); this must be called when the last glfwWindow's closing!
-}
+ImGuiLayer::~ImGuiLayer() {}
 
 // ref: ImGui/examples/example_glfw_opengl3/main.cpp
 void ImGuiLayer::OnAttach()
@@ -59,14 +54,19 @@ void ImGuiLayer::OnAttach()
     ImGui_ImplOpenGL3_Init("#version 410");
 }
 
-void ImGuiLayer::OnDetach() {}
+void ImGuiLayer::OnDetach()
+{
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui::DestroyContext();
+    // glfwTerminate(); this must be called when the last glfwWindow's closing!
+}
 
 void ImGuiLayer::OnUpdate()
 {
     ImGuiIO& io = ImGui::GetIO();
     Application& app = Application::Get();
-    io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(),
-                            (float)app.GetWindow().GetHeight());
+    io.DisplaySize = ImVec2((float32)app.GetWindow().GetWidth(),
+                            (float32)app.GetWindow().GetHeight());
 
     float32 time = (float32)glfwGetTime();
     io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
@@ -96,7 +96,6 @@ void ImGuiLayer::OnEvent(Event& e)
     {
         funcMap[e.GetType().GetTypeHash()](e);
     }
-
 
     dispatcher.Dispatch<MouseMovedEvent>(
         BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));

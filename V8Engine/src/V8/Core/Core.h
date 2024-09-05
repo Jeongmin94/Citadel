@@ -17,8 +17,8 @@
 #endif
 
 #ifdef V8_ENABLE_ASSERTS
-	#define V8_ASSERT(x, ...) if(!(x)) { V8_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}
-	#define V8_CORE_ASSERT(x, ...) if(!(x)) { V8_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();}
+	#define V8_ASSERT(x, ...) if(!(x)) { CLI_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
+	#define V8_CORE_ASSERT(x, ...) if(!(x)) { V8_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
 #else
 	#define V8_ASSERT(x, ...)
 	#define V8_CORE_ASSERT(x, ...)

@@ -6,6 +6,8 @@
 #include "V8/Core/Window.h"
 #include "V8/Events/ApplicationEvent.h"
 
+#include "Platform/Windows/WindowsInput.h"
+
 #include <glad/glad.h>
 
 namespace V8

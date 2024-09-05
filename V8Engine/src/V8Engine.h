@@ -1,6 +1,7 @@
 #pragma once
 
 #include "V8/Application.h"
+#include "V8/Core/Input.h"
 #include "V8/Core/Layer.h"
 #include "V8/GUI/ImGuiLayer.h"
 #include "V8/Utils/Log.h"
