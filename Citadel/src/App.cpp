@@ -16,7 +16,8 @@ public:
     }
 
     void OnEvent(V8::Event& e) override
-    { /*CLI_TRACE("{0}", e.ToString());*/
+    { 
+        //CLI_TRACE("{0}", e.ToString());
     }
 };
 

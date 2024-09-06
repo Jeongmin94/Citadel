@@ -5,6 +5,7 @@
 #include "V8/Core/LayerStack.h"
 #include "V8/Core/Window.h"
 #include "V8/Events/ApplicationEvent.h"
+#include "V8/Events/Event.h"
 
 #include "Platform/Windows/WindowsInput.h"
 
@@ -17,13 +18,17 @@ Application* Application::s_Instance = nullptr;
 
 Application::Application()
 {
-    V8_CORE_ASSERT(!s_Instance, "Application already exists!");
+    CORE_ASSERT(!s_Instance, "Application already exists!");
     s_Instance = this;
 
     m_Window = std::unique_ptr<IWindow>(IWindow::Create());
     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
     m_LayerStack = new LayerStack;
+
+    m_HandlerRegistry = std::make_shared<EventHandlerRegistry>();
+    m_HandlerRegistry->RegisterHandler<WindowClosedEvent>(
+        BIND_EVENT_FN(Application::OnWindowClose));
 }
 
 Application::~Application()
@@ -49,19 +54,16 @@ void Application::Run()
 
 void Application::OnEvent(Event& event)
 {
-    EventDispatcher dispatcher(event);
-    // !TODO: 리플렉션 적용하기
-    dispatcher.Dispatch<WindowClosedEvent>(
-        BIND_EVENT_FN(Application::OnWindowClose));
+    event.SetIsHandled(m_HandlerRegistry->HandleEvent(event));
 
     for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();)
     {
         (*--it)->OnEvent(event);
-        if (event.m_isHandled)
+        if (event.IsHandled())
             break;
     }
 
-    V8_CORE_TRACE("{0}", event.ToString());
+    CORE_TRACE("{0}", event.ToString());
 }
 
 void Application::PushLayer(Layer* layer)

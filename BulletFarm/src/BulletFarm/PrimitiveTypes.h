@@ -15,4 +15,6 @@ using int8		= int8_t;
 using float32	= float;
 using float64	= double;
 
+using TypeHash  = size_t;
+
 // clang-format on

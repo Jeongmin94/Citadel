@@ -18,7 +18,7 @@ public:
     inline uint32 GetWidth() const override { return m_Data.Width; };
     inline uint32 GetHeight() const override { return m_Data.Height; };
 
-    inline void SetEventCallback(const EventCallbackFn& callback) override
+    inline void SetEventCallback(const EventCallbackVoidFn& callback) override
     {
         m_Data.EventCallback = callback;
     }
@@ -43,7 +43,7 @@ private:
         uint32 Width, Height;
         bool VSync;
 
-        EventCallbackFn EventCallback;
+        EventCallbackVoidFn EventCallback;
     };
 
     WindowData m_Data;

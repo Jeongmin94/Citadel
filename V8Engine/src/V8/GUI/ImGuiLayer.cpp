@@ -9,10 +9,33 @@
 #include "V8/Application.h"
 #include "V8/Core/Core.h"
 #include "V8/Core/Window.h"
+#include "V8/Events/Event.h"
 
 namespace V8
 {
-ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
+ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer")
+{
+    m_HandlerRegistry = std::make_shared<EventHandlerRegistry>();
+
+    m_HandlerRegistry->RegisterHandler<MouseButtonPressedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
+    m_HandlerRegistry->RegisterHandler<MouseButtonReleasedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
+    m_HandlerRegistry->RegisterHandler<MouseMovedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
+    m_HandlerRegistry->RegisterHandler<MouseScrolledEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
+
+    m_HandlerRegistry->RegisterHandler<KeyPressedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
+    m_HandlerRegistry->RegisterHandler<KeyReleasedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
+    m_HandlerRegistry->RegisterHandler<KeyTypedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+
+    m_HandlerRegistry->RegisterHandler<WindowResizedEvent>(
+        BIND_EVENT_FN(ImGuiLayer::OnWindowResizedEvent));
+}
 
 ImGuiLayer::~ImGuiLayer() {}
 
@@ -50,7 +73,7 @@ void ImGuiLayer::OnAttach()
     io.KeyMap[ImGuiKey_Z]               = GLFW_KEY_Z;
     // clang-format on
 
-    V8_CORE_INFO("ImGui Version: {0}", IMGUI_VERSION);
+    CORE_INFO("ImGui Version: {0}", IMGUI_VERSION);
     ImGui_ImplOpenGL3_Init("#version 410");
 }
 
@@ -82,29 +105,12 @@ void ImGuiLayer::OnUpdate()
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
-using TypeHash = size_t;
-std::unordered_map<TypeHash, std::function<void(Event&)>> funcMap;
-
 void ImGuiLayer::OnEvent(Event& e)
 {
-    EventDispatcher dispatcher(e);
+    CORE_INFO("{0}", e.StaticType().ToString());
+    CORE_INFO("{0}", e.GetType().ToString());
 
-    V8_CORE_INFO("{0}", e.StaticType().ToString());
-    V8_CORE_INFO("{0}", e.GetType().ToString());
-
-    if (funcMap.find(e.GetType().GetTypeHash()) != funcMap.end())
-    {
-        funcMap[e.GetType().GetTypeHash()](e);
-    }
-
-    dispatcher.Dispatch<MouseMovedEvent>(
-        BIND_EVENT_FN(ImGuiLayer::OnMouseMovedEvent));
-
-    dispatcher.Dispatch<MouseButtonPressedEvent>(
-        BIND_EVENT_FN(ImGuiLayer::OnMouseButtonPressedEvent));
-
-    dispatcher.Dispatch<MouseButtonReleasedEvent>(
-        BIND_EVENT_FN(ImGuiLayer::OnMouseButtonReleasedEvent));
+    e.SetIsHandled(m_HandlerRegistry->HandleEvent(e));
 }
 
 bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)

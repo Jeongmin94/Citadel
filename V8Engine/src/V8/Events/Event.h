@@ -4,8 +4,6 @@
 
 #include "V8/Core/Core.h"
 
-#include "BulletFarm.h"
-
 namespace V8
 {
 // Ref: https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Hazel/Events
@@ -60,13 +58,20 @@ public:
     virtual std::string ToString() const { return GetName(); }
 
 public:
-    bool m_isHandled = false;
-
     bool IsInCategory(EventCategory category) const
     {
         return GetCategoryFlags() & static_cast<uint8>(category);
     }
+
+    inline bool IsHandled() const { return m_isHandled; }
+    inline void SetIsHandled(bool handled) { m_isHandled |= handled; }
+
+private:
+    bool m_isHandled = false;
 };
+
+using EventCallbackBoolFn = std::function<bool(Event&)>;
+using EventCallbackVoidFn = std::function<void(Event&)>;
 
 class EventDispatcher
 {
@@ -78,7 +83,7 @@ public:
     {
         if (m_Event.GetEventType() == T::GetStaticType())
         {
-            m_Event.m_isHandled = func(static_cast<T&>(m_Event));
+            m_Event.SetIsHandled(func(static_cast<T&>(m_Event)));
             return true;
         }
 
@@ -87,6 +92,33 @@ public:
 
 private:
     Event& m_Event;
+};
+
+class EventHandlerRegistry
+{
+public:
+    template <typename EventType>
+    void RegisterHandler(const std::function<bool(EventType&)>& handler)
+    {
+        TypeHash key = EventType::StaticType().GetTypeHash();
+
+        if (m_HandlerMap.find(key) != m_HandlerMap.end())
+        {
+            CORE_WARN("This handler is already registered: {0}",
+                      EventType::StaticType().ToString());
+
+            return;
+        }
+
+        m_HandlerMap[key] = [handler](Event& e)
+        { return handler(static_cast<EventType&>(e)); };
+    }
+
+    bool HandleEvent(Event& e) const;
+
+private:
+    using EventHandlerMap = std::unordered_map<TypeHash, EventCallbackBoolFn>;
+    EventHandlerMap m_HandlerMap;
 };
 
 } // namespace V8

@@ -7,6 +7,8 @@
 
 namespace V8
 {
+class EventHandlerRegistry;
+
 class V8API ImGuiLayer : public Layer
 {
 public:
@@ -32,5 +34,7 @@ private:
 
 private:
     float32 m_Time = 0.0f;
+
+    std::shared_ptr<EventHandlerRegistry> m_HandlerRegistry;
 };
 } // namespace V8

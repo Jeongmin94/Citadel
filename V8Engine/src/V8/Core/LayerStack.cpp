@@ -19,7 +19,7 @@ LayerStack::~LayerStack()
         }
         else
         {
-            V8_CORE_ERROR("layer is invalid");
+            CORE_ERROR("layer is invalid");
         }
     }
 }

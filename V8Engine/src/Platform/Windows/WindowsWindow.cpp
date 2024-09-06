@@ -18,7 +18,7 @@ static bool s_GLFWInitialized = false;
 
 static void GLFWErrorCallback(int error, const char* desc)
 {
-    V8_CORE_ERROR("GLFW Error ({0}): {1}", error, desc);
+    CORE_ERROR("GLFW Error ({0}): {1}", error, desc);
 }
 
 IWindow* IWindow::Create(const WindowProps& props)
@@ -57,14 +57,14 @@ void WindowsWindow::Init(const WindowProps& props)
     m_Data.Width = props.Width;
     m_Data.Height = props.Height;
 
-    V8_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width,
+    CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width,
                  props.Height);
 
     if (!s_GLFWInitialized)
     {
         // !TODO: glfwTerminate on system shutdown
         int success = glfwInit();
-        V8_CORE_ASSERT(success, "Could not be initialize GLFW!");
+        CORE_ASSERT(success, "Could not be initialize GLFW!");
 
         glfwSetErrorCallback(GLFWErrorCallback);
 
@@ -75,7 +75,7 @@ void WindowsWindow::Init(const WindowProps& props)
                                 m_Data.Title.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(m_Window);
     int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    V8_CORE_ASSERT(status, "Failed to initialize Glad!");
+    CORE_ASSERT(status, "Failed to initialize Glad!");
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
 

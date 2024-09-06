@@ -25,8 +25,6 @@ struct WindowProps
 class V8API IWindow
 {
 public:
-    using EventCallbackFn = std::function<void(Event&)>;
-
     virtual ~IWindow(){};
 
     virtual void OnUpdate() = 0;
@@ -35,7 +33,7 @@ public:
     virtual uint32 GetHeight() const = 0;
 
     // Window Attributes
-    virtual void SetEventCallback(const EventCallbackFn& callback) = 0;
+    virtual void SetEventCallback(const EventCallbackVoidFn& callback) = 0;
     virtual void SetVSync(bool isEnabled) = 0;
     virtual bool IsVSync() const = 0;
 

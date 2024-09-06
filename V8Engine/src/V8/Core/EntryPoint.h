@@ -21,14 +21,14 @@ int main(int argc, char** argv)
 
     V8::Log::Init();
 
-    V8_CORE_WARN("Initialized V8_CORE Log!");
+    CORE_WARN("Initialized V8_CORE Log!");
     CLI_WARN("Initialized CLI Log!");
 
     auto app = V8::CreateApplication();
 
     const auto& appInfo = typeid(*app);
 
-    V8_CORE_DEBUG("{0}", appInfo.name());
+    CORE_DEBUG("{0}", appInfo.name());
 
     app->Run();
     delete app;
