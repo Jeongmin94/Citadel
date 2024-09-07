@@ -31,7 +31,7 @@ public:
     inline static float32 GetMouseY() { return s_Instance->GetMouseYImpl(); }
 
 protected:
-    virtual bool IsKeyPressedImpl(int32 keycode0) = 0;
+    virtual bool IsKeyPressedImpl(int32 keycode) = 0;
     virtual bool IsMouseButtonPressedImpl(int32 button) = 0;
     virtual MousePos GetMousePosImpl() = 0;
     virtual float32 GetMouseXImpl() = 0;

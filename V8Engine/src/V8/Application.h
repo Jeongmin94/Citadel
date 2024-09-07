@@ -38,7 +38,6 @@ private:
     std::unique_ptr<IWindow> m_Window;
     bool m_IsRunning = true;
     LayerStack* m_LayerStack = nullptr;
-    std::shared_ptr<EventHandlerRegistry> m_HandlerRegistry;
 
     static Application* s_Instance;
 };

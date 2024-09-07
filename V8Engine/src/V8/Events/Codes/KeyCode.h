@@ -2,6 +2,16 @@
 
 #include <BulletFarm.h>
 
+// clang-format off
+uint16
+    KeyMode = 0;    // 0: GLFW
+
+#ifdef Win32API
+    KeyMode = 1;    // 1: Win32API
+#endif // Win32API
+
+// clang-format on
+
 namespace V8
 {
 namespace Key
@@ -11,7 +21,7 @@ using KeyCode = uint16_t;
 // !TODO: support (glfw, win32api)
 enum : KeyCode
 {
-    // From glfw3.h
+    // From glfw3.h and Citadel Standard
     Space = 32,
     Apostrophe = 39, /* ' */
     Comma = 44,      /* , */
@@ -145,4 +155,18 @@ enum : KeyCode
 };
 
 } // namespace Key
+
+class KeyCodeUtil
+{
+private:
+    KeyCodeUtil() = delete;
+
+public:
+    static void Init();
+    inline static KeyCodeUtil& Get() { return *s_Instance; }
+
+private:
+    static KeyCodeUtil* s_Instance;
+};
+
 } // namespace V8

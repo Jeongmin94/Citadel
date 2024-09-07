@@ -78,8 +78,8 @@ class EventDispatcher
 public:
     EventDispatcher(Event& event) : m_Event(event) {}
 
-    template <typename T, typename F>
-    bool Dispatch(const F& func)
+    template <typename T>
+    bool Dispatch(const std::function<bool(T&)> func)
     {
         if (m_Event.GetEventType() == T::GetStaticType())
         {

@@ -25,10 +25,6 @@ Application::Application()
     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
     m_LayerStack = new LayerStack;
-
-    m_HandlerRegistry = std::make_shared<EventHandlerRegistry>();
-    m_HandlerRegistry->RegisterHandler<WindowClosedEvent>(
-        BIND_EVENT_FN(Application::OnWindowClose));
 }
 
 Application::~Application()
@@ -54,7 +50,11 @@ void Application::Run()
 
 void Application::OnEvent(Event& event)
 {
-    event.SetIsHandled(m_HandlerRegistry->HandleEvent(event));
+    // Application level event
+    // event.SetIsHandled(m_HandlerRegistry->HandleEvent(event));
+    EventDispatcher dispatcher(event);
+    dispatcher.Dispatch<WindowClosedEvent>(
+        BIND_EVENT_FN(Application::OnWindowClose));
 
     for (auto it = m_LayerStack->end(); it != m_LayerStack->begin();)
     {

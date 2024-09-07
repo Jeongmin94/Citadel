@@ -68,7 +68,7 @@ public:
     std::string ToString() const
     {
         std::stringstream ss;
-        ss << m_FullName << "( " << m_TypeHash << " )";
+        ss << m_Name << "( " << m_TypeHash << " )";
         return ss.str();
     }
 
