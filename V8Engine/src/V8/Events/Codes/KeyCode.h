@@ -2,21 +2,12 @@
 
 #include <BulletFarm.h>
 
-// clang-format off
-uint16
-    KeyMode = 0;    // 0: GLFW
-
-#ifdef Win32API
-    KeyMode = 1;    // 1: Win32API
-#endif // Win32API
-
-// clang-format on
-
 namespace V8
 {
+
 namespace Key
 {
-using KeyCode = uint16_t;
+using KeyCode = uint16;
 
 // !TODO: support (glfw, win32api)
 enum : KeyCode
@@ -156,17 +147,48 @@ enum : KeyCode
 
 } // namespace Key
 
-class KeyCodeUtil
+struct KeyCodeMapper
 {
 private:
-    KeyCodeUtil() = delete;
+    KeyCodeMapper(const KeyCodeMapper&) = delete;
+    KeyCodeMapper& operator=(const KeyCodeMapper&) = delete;
 
 public:
-    static void Init();
-    inline static KeyCodeUtil& Get() { return *s_Instance; }
+    KeyCodeMapper(uint16 keyMode);
+
+    Key::KeyCode ToKeyCodeImpl(int32 platformCode);
+    int32 ToPlatformCodeImpl(Key::KeyCode keyCode);
+
+    inline std::string ToString() const { return m_ModeName; }
 
 private:
-    static KeyCodeUtil* s_Instance;
+    void InitMap(uint16 keyMode);
+
+private:
+    using PlatformToKeyMap = std::unordered_map<int32, Key::KeyCode>;
+    using KeyToPlatformMap = std::unordered_map<Key::KeyCode, int32>;
+
+    PlatformToKeyMap m_PtoK;
+    KeyToPlatformMap m_KtoP;
+
+    std::string m_ModeName;
+};
+
+class V8API KeyCodeUtil
+{
+private:
+    KeyCodeUtil();
+
+public:
+    static KeyCodeUtil& Get();
+
+    Key::KeyCode ToKeyCode(int32 platformCode);
+    int32 ToPlatformCode(Key::KeyCode keyCode);
+
+private:
+    static KeyCodeUtil* s_KeyCodeUtil;
+
+    KeyCodeMapper m_Mapper;
 };
 
 } // namespace V8

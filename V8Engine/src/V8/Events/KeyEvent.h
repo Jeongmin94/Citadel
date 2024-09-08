@@ -11,10 +11,17 @@ class KeyEvent : public Event
 {
     GENERATE_TYPE_INFO(KeyEvent)
 protected:
-    KeyEvent(const KeyCode& keycode) : m_KeyCode(keycode) {}
+    KeyEvent(const int32& platformCode)
+    {
+        m_KeyCode = KeyCodeUtil::Get().ToKeyCode(platformCode);
+    }
 
 public:
     KeyCode GetKeyCode() const { return m_KeyCode; }
+    int32 GetPlatformCode() const
+    {
+        return KeyCodeUtil::Get().ToPlatformCode(m_KeyCode);
+    }
 
     EVENT_CLASS_CATEGORY(EC_Keyboard | EC_Input)
 
@@ -26,8 +33,8 @@ class KeyPressedEvent : public KeyEvent
 {
     GENERATE_TYPE_INFO(KeyPressedEvent)
 public:
-    KeyPressedEvent(const KeyCode& keycode, bool isRepeat = false)
-        : KeyEvent(keycode), m_IsRepeat(isRepeat)
+    KeyPressedEvent(const int32& platformCode, bool isRepeat = false)
+        : KeyEvent(platformCode), m_IsRepeat(isRepeat)
     {
     }
 
@@ -51,7 +58,7 @@ class KeyReleasedEvent : public KeyEvent
 {
     GENERATE_TYPE_INFO(KeyReleasedEvent)
 public:
-    KeyReleasedEvent(const KeyCode& keycode) : KeyEvent(keycode) {}
+    KeyReleasedEvent(const int32& platformCode) : KeyEvent(platformCode) {}
 
     std::string ToString() const override
     {
@@ -67,7 +74,7 @@ class KeyTypedEvent : public KeyEvent
 {
     GENERATE_TYPE_INFO(KeyTypedEvent)
 public:
-    KeyTypedEvent(const KeyCode& keycode) : KeyEvent(keycode) {}
+    KeyTypedEvent(const int32& platformCode) : KeyEvent(platformCode) {}
 
     std::string ToString() const override
     {

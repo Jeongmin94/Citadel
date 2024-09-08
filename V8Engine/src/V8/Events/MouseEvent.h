@@ -64,7 +64,7 @@ public:
     EVENT_CLASS_CATEGORY(EC_Mouse | EC_Input | EC_MouseButton)
 
 protected:
-    MouseButtonEvent(const MouseCode button) : m_Button(button) {}
+    MouseButtonEvent(const int32 platformButton) : m_Button(platformButton) {}
 
     MouseCode m_Button;
 };
@@ -73,7 +73,8 @@ class MouseButtonPressedEvent : public MouseButtonEvent
 {
     GENERATE_TYPE_INFO(MouseButtonPressedEvent)
 public:
-    MouseButtonPressedEvent(const MouseCode button) : MouseButtonEvent(button)
+    MouseButtonPressedEvent(const int32 platformButton)
+        : MouseButtonEvent(platformButton)
     {
     }
 
@@ -91,7 +92,8 @@ class MouseButtonReleasedEvent : public MouseButtonEvent
 {
     GENERATE_TYPE_INFO(MouseButtonReleasedEvent)
 public:
-    MouseButtonReleasedEvent(const MouseCode button) : MouseButtonEvent(button)
+    MouseButtonReleasedEvent(const int32 platformButton)
+        : MouseButtonEvent(platformButton)
     {
     }
 

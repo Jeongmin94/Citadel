@@ -2,6 +2,8 @@
 
 #include <BulletFarm.h>
 
+#include "CommonCodeCore.h"
+
 namespace V8
 {
 namespace Mouse

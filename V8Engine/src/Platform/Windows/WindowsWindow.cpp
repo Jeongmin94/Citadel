@@ -1,6 +1,8 @@
 #include "v8pch.h"
 
 #include "V8/Events/ApplicationEvent.h"
+#include "V8/Events/Codes/KeyCode.h"
+#include "V8/Events/Codes/MouseCode.h"
 #include "V8/Events/KeyEvent.h"
 #include "V8/Events/MouseEvent.h"
 #include "WindowsWindow.h"
@@ -58,7 +60,7 @@ void WindowsWindow::Init(const WindowProps& props)
     m_Data.Height = props.Height;
 
     CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width,
-                 props.Height);
+              props.Height);
 
     if (!s_GLFWInitialized)
     {

@@ -113,6 +113,7 @@ void ImGuiLayer::OnEvent(Event& e)
     e.SetIsHandled(m_HandlerRegistry->HandleEvent(e));
 }
 
+// !TODO: MouseCodeMapper 사용
 bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 {
     ImGuiIO& io = ImGui::GetIO();
@@ -120,7 +121,7 @@ bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 
     return false;
 }
-
+// !TODO: MouseCodeMapper 사용
 bool ImGuiLayer::OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e)
 {
     ImGuiIO& io = ImGui::GetIO();
@@ -148,8 +149,11 @@ bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e)
 
 bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
 {
+    int32 platformCode = e.GetPlatformCode();
+
     ImGuiIO& io = ImGui::GetIO();
-    io.KeysDown[e.GetKeyCode()] = true;
+
+    io.KeysDown[platformCode] = true;
 
     io.KeyCtrl = io.KeysDown[GLFW_KEY_LEFT_CONTROL] ||
                  io.KeysDown[GLFW_KEY_RIGHT_CONTROL];
@@ -165,19 +169,21 @@ bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
 
 bool ImGuiLayer::OnKeyReleasedEvent(KeyReleasedEvent& e)
 {
+    int32 platformCode = e.GetPlatformCode();
+
     ImGuiIO& io = ImGui::GetIO();
-    io.KeysDown[e.GetKeyCode()] = false;
+    io.KeysDown[platformCode] = false;
     return false;
 }
 
 bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent& e)
 {
-    ImGuiIO& io = ImGui::GetIO();
+    int32 platformCode = e.GetPlatformCode();
 
-    V8::KeyCode keycode = e.GetKeyCode();
-    if (keycode > 0 && keycode < 0x10000)
+    ImGuiIO& io = ImGui::GetIO();
+    if (platformCode > 0 && platformCode < 0x10000)
     {
-        io.AddInputCharacter(keycode);
+        io.AddInputCharacter(platformCode);
     }
 
     return false;

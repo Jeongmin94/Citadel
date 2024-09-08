@@ -12,6 +12,15 @@ class V8API Input
 public:
     using MousePos = std::pair<float32, float32>;
 
+protected:
+    virtual ~Input()
+    {
+        if (s_Instance)
+            delete s_Instance;
+    }
+
+    virtual void OnDelete(){};
+
 public:
     inline static bool IsKeyPressed(int32 keycode)
     {

@@ -1,6 +1,7 @@
 #include "v8pch.h"
 
 #include "Application.h"
+#include "V8/Core/Input.h"
 #include "V8/Core/Layer.h"
 #include "V8/Core/LayerStack.h"
 #include "V8/Core/Window.h"
@@ -44,6 +45,10 @@ void Application::Run()
         {
             layer->OnUpdate();
         }
+
+        auto [x, y] = Input::GetMousePos();
+        CORE_TRACE("{0}, {1}", x, y);
+
         m_Window->OnUpdate();
     }
 }

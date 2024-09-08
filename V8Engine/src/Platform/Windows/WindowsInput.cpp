@@ -2,6 +2,8 @@
 
 #include "V8/Application.h"
 #include "V8/Core/Window.h"
+#include "V8/Events/Codes/KeyCode.h"
+#include "V8/Events/Codes/MouseCode.h"
 #include "WindowsInput.h"
 
 #include <GLFW/glfw3.h>
@@ -9,6 +11,10 @@
 namespace V8
 {
 Input* Input::s_Instance = new WindowsInput;
+
+WindowsInput::~WindowsInput() { OnDelete(); }
+
+void WindowsInput::OnDelete(){};
 
 bool WindowsInput::IsKeyPressedImpl(int32 keycode)
 {
