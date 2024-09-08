@@ -60,6 +60,7 @@ IncludeDir["BulletFarm"] = "BulletFarm/src"
 IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
 IncludeDir["Glad"] = "V8Engine/vendor/Glad/include"
 IncludeDir["ImGui"] = "V8Engine/vendor/ImGui"
+IncludeDir["glm"] = "V8Engine/vendor/math/glm"
 IncludeDir["gtest"] = "UnitTest/vendor/googletest/googletest"
 
 -- include premake5.lua files in directory
@@ -85,7 +86,9 @@ project "V8Engine"
 	files
 	{
 		"%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp" 
+        "%{prj.name}/src/**.cpp",
+		-- "%{prj.name}/vendor/math/glm/**.hpp",
+		-- "%{prj.name}/vendor/math/glm/**.inl",
 	}
 
 	includedirs
@@ -96,6 +99,7 @@ project "V8Engine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}",
 	}
 
 	links
@@ -166,7 +170,7 @@ project "UnitTest"
 		"V8Engine/vendor/spdlog/include",
 		"V8Engine/src",
 		"%{IncludeDir.BulletFarm}",
-
+		
 		-- GoogleTest
 		"%{IncludeDir.gtest}/include",
 		"%{IncludeDir.gtest}", 
@@ -224,6 +228,7 @@ project "Citadel"
 		"V8Engine/vendor/spdlog/include",
 		"V8Engine/src",
 		"%{IncludeDir.BulletFarm}",
+		"%{IncludeDir.glm}",
 	}
 
 	links
