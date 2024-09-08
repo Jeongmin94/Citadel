@@ -1,8 +1,7 @@
 #pragma once
 
-#include "V8/Core/Core.h"
-
 #include "BulletFarm/PrimitiveTypes.h"
+#include "V8/Core/Core.h"
 
 namespace V8
 {

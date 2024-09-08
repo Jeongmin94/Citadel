@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 {
 #ifdef CITADEL_DEBUG
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//_CrtSetBreakAlloc(1039);
+    _CrtSetBreakAlloc(159);
 #endif
 
     V8::Log::Init();
@@ -37,7 +37,9 @@ int main(int argc, char** argv)
 
 #ifdef CITADEL_DEBUG
     // https://stackoverflow.com/questions/2323458/how-to-ignore-false-positive-memory-leaks-from-crtdumpmemoryleaks
-    //_CrtDumpMemoryLeaks();5
+    //_CrtDumpMemoryLeaks();
+    _CrtSetBreakAlloc(159);
+
 #endif
 
     return 0;

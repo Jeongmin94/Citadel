@@ -1,11 +1,15 @@
 #pragma once
 
+namespace CommonCode
+{
 #ifdef Win32API
 // TODO: add Win32 header
 constexpr uint16_t KEY_MODE = 0;
 #else
 constexpr uint16_t KEY_MODE = 1;
 #endif
+
+} // namespace CommonCode
 
 namespace V8
 {

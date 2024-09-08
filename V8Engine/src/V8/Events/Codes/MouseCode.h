@@ -30,4 +30,49 @@ enum : MouseCode
 };
 
 } // namespace Mouse
+
+struct MouseCodeMapper
+{
+private:
+    MouseCodeMapper(const MouseCodeMapper&) = delete;
+    MouseCodeMapper& operator=(const MouseCodeMapper&) = delete;
+
+public:
+    MouseCodeMapper(uint16_t mode);
+
+    Mouse::MouseCode ToMouseCode(int32_t platformCode);
+    int32_t ToPlatformCode(Mouse::MouseCode mouseCode);
+
+    inline std::string ToString() const { return m_ModeName; }
+
+private:
+    void InitMap(uint16 keyMode);
+
+private:
+    using PlatformToMouseMap = std::unordered_map<int32_t, Mouse::MouseCode>;
+    using MouseToPlatformMap = std::unordered_map<Mouse::MouseCode, int32_t>;
+
+    PlatformToMouseMap m_PtoM;
+    MouseToPlatformMap m_MtoP;
+
+    std::string m_ModeName;
+};
+
+class V8API MouseCodeUtil
+{
+private:
+    MouseCodeUtil();
+
+public:
+    static MouseCodeUtil& Get();
+
+    Mouse::MouseCode ToMouseCode(int32_t platformCode);
+    int32_t ToPlatformCode(Mouse::MouseCode mouseCode);
+
+    inline std::string ToString() const { return m_Mapper.ToString(); }
+
+private:
+    MouseCodeMapper m_Mapper;
+};
+
 } // namespace V8
