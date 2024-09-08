@@ -40,8 +40,8 @@ private:
 public:
     MouseCodeMapper(uint16_t mode);
 
-    Mouse::MouseCode ToMouseCode(int32_t platformCode);
-    int32_t ToPlatformCode(Mouse::MouseCode mouseCode);
+    Mouse::MouseCode ToMouseCodeImpl(int32_t platformCode);
+    int32_t ToPlatformCodeImpl(Mouse::MouseCode mouseCode);
 
     inline std::string ToString() const { return m_ModeName; }
 

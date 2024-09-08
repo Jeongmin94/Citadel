@@ -14,12 +14,12 @@ namespace V8
 
 MouseCodeMapper::MouseCodeMapper(uint16_t mode) {}
 
-Mouse::MouseCode MouseCodeMapper::ToMouseCode(int32_t platformCode)
+Mouse::MouseCode MouseCodeMapper::ToMouseCodeImpl(int32_t platformCode)
 {
     return m_PtoM[platformCode];
 }
 
-int32_t MouseCodeMapper::ToPlatformCode(Mouse::MouseCode mouseCode)
+int32_t MouseCodeMapper::ToPlatformCodeImpl(Mouse::MouseCode mouseCode)
 {
     return m_MtoP[mouseCode];
 }
@@ -65,12 +65,12 @@ MouseCodeUtil& MouseCodeUtil::Get()
 
 Mouse::MouseCode MouseCodeUtil::ToMouseCode(int32_t platformCode)
 {
-    return m_Mapper.ToMouseCode(platformCode);
+    return MouseCodeUtil::Get().m_Mapper.ToMouseCodeImpl(platformCode);
 }
 
 int32_t MouseCodeUtil::ToPlatformCode(Mouse::MouseCode mouseCode)
 {
-    return m_Mapper.ToPlatformCode(mouseCode);
+    return MouseCodeUtil::Get().m_Mapper.ToPlatformCodeImpl(mouseCode);
 }
 
 } // namespace V8
