@@ -9,7 +9,6 @@ class WindowsInput : public Input
 {
 protected:
     virtual ~WindowsInput() override;
-    virtual void OnDelete() override;
 
 protected:
     virtual bool IsKeyPressedImpl(int32 keycode) override;

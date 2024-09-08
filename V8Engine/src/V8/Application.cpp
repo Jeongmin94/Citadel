@@ -32,6 +32,8 @@ Application::~Application()
 {
     if (m_LayerStack)
         delete m_LayerStack;
+
+   Input::Get().OnDestroy();
 }
 
 void Application::Run()

@@ -13,15 +13,17 @@ public:
     using MousePos = std::pair<float32, float32>;
 
 protected:
-    virtual ~Input()
+    virtual ~Input() {}
+
+public:
+    void OnDestroy()
     {
         if (s_Instance)
             delete s_Instance;
-    }
+    };
 
-    virtual void OnDelete(){};
+    inline static Input& Get() { return *s_Instance; }
 
-public:
     inline static bool IsKeyPressed(int32 keycode)
     {
         return s_Instance->IsKeyPressedImpl(keycode);

@@ -10,11 +10,10 @@
 
 namespace V8
 {
+
 Input* Input::s_Instance = new WindowsInput;
 
-WindowsInput::~WindowsInput() { OnDelete(); }
-
-void WindowsInput::OnDelete(){};
+WindowsInput::~WindowsInput() {}
 
 bool WindowsInput::IsKeyPressedImpl(int32 keycode)
 {
