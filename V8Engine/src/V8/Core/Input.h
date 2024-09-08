@@ -1,8 +1,7 @@
 #pragma once
 
-#include "V8/Core/Core.h"
-
 #include "BulletFarm/PrimitiveTypes.h"
+#include "V8/Core/Core.h"
 
 namespace V8
 {
@@ -19,7 +18,7 @@ protected:
             delete s_Instance;
     }
 
-    virtual void OnDelete(){};
+    virtual void OnDelete() = 0;
 
 public:
     inline static bool IsKeyPressed(int32 keycode)

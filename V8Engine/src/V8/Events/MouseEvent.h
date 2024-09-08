@@ -60,11 +60,18 @@ class MouseButtonEvent : public Event
     GENERATE_TYPE_INFO(MouseButtonEvent)
 public:
     MouseCode GetMouseButton() const { return m_Button; }
+    int32 GetPlatformButton() const
+    {
+        return MouseCodeUtil::Get().ToPlatformCode(m_Button);
+    }
 
     EVENT_CLASS_CATEGORY(EC_Mouse | EC_Input | EC_MouseButton)
 
 protected:
-    MouseButtonEvent(const int32 platformButton) : m_Button(platformButton) {}
+    MouseButtonEvent(const int32 platformButton)
+    {
+        m_Button = MouseCodeUtil::Get().ToMouseCode(platformButton);
+    }
 
     MouseCode m_Button;
 };

@@ -12,49 +12,25 @@
 namespace V8
 {
 
-KeyCodeUtil* KeyCodeUtil::s_KeyCodeUtil = nullptr;
+KeyCodeUtil::KeyCodeUtil() : m_Mapper(CommonCode::KEY_MODE) {}
 
-KeyCodeUtil::KeyCodeUtil() : m_Mapper(KEY_MODE)
+KeyCodeUtil& KeyCodeUtil::Get()
 {
-    CORE_ASSERT(!KeyCodeUtil::s_KeyCodeUtil, "{0}",
-                "KeyCodeUtil already Exist!")
-
-    KeyCodeUtil::s_KeyCodeUtil = this;
-
-    CORE_ASSERT(KeyCodeUtil::s_KeyCodeUtil, "{0}",
-                "KeyCodeUtil Intializing Failed!");
+    static KeyCodeUtil s_KeyCodeUtil;
+    return s_KeyCodeUtil;
 }
-
-KeyCodeUtil& KeyCodeUtil::Get() { return *s_KeyCodeUtil; }
 
 Key::KeyCode KeyCodeUtil::ToKeyCode(int32 platformCode)
 {
-    return s_KeyCodeUtil->m_Mapper.ToKeyCodeImpl(platformCode);
+    return KeyCodeUtil::Get().m_Mapper.ToKeyCodeImpl(platformCode);
 }
 
 int32 KeyCodeUtil::ToPlatformCode(Key::KeyCode keyCode)
 {
-    return s_KeyCodeUtil->m_Mapper.ToPlatformCodeImpl(keyCode);
+    return KeyCodeUtil::Get().m_Mapper.ToPlatformCodeImpl(keyCode);
 }
 
-KeyCodeMapper::KeyCodeMapper(uint16 keyMode)
-{
-    switch (keyMode)
-    {
-        case KeyMode::GLFW:
-        {
-            m_ModeName = std::string("KeyModeGLFW");
-            break;
-        }
-        case KeyMode::WIN32API:
-        {
-            m_ModeName = std::string("KeyModeWIN32API");
-            break;
-        }
-    }
-
-    InitMap(keyMode);
-}
+KeyCodeMapper::KeyCodeMapper(uint16 keyMode) { InitMap(keyMode); }
 
 void KeyCodeMapper::InitMap(uint16 keyMode)
 {
@@ -62,6 +38,8 @@ void KeyCodeMapper::InitMap(uint16 keyMode)
     {
         case KeyMode::GLFW:
         {
+            m_ModeName = std::string("KeyModeGLFW");
+
             // Initialize GLFW key code mappings
             m_PtoK[GLFW_KEY_SPACE] = Key::Space;
             m_PtoK[GLFW_KEY_APOSTROPHE] = Key::Apostrophe;
@@ -191,8 +169,10 @@ void KeyCodeMapper::InitMap(uint16 keyMode)
             }
             break;
         }
+
         case KeyMode::WIN32API:
         {
+            m_ModeName = std::string("KeyModeWIN32API");
             break;
         }
     }

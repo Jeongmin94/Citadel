@@ -185,9 +185,9 @@ public:
     Key::KeyCode ToKeyCode(int32 platformCode);
     int32 ToPlatformCode(Key::KeyCode keyCode);
 
-private:
-    static KeyCodeUtil* s_KeyCodeUtil;
+    inline std::string ToString() const { return m_Mapper.ToString(); }
 
+private:
     KeyCodeMapper m_Mapper;
 };
 
