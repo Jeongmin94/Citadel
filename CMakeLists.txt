@@ -1,42 +1,62 @@
-# Startup Citadel
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.10)
 
-project(Citadel VERSION 0.1.0.0
-    DESCRIPTION "CMake for Citadel"
-    LANGUAGES CXX
-)
+project(Citadel)
 
-# Language
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Configurations
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release;Dist" CACHE STRING "" FORCE)
-set(CMAKE_SHARED_LINKER_FLAGS_DIST "-O2")
-set(CMAKE_EXE_LINKER_FLAGS_DIST "-02")
+# Output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-set(OUTPUT_DIR "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}-${CMAKE_SYSTEM_NAME}")
-set(OBJ_DIR "${CMAKE_BINARY_DIR}/bin-int/${CMAKE_BUILD_TYPE}-${CMAKE_SYSTEM_NAME}")
+# Include directories
+include_directories(
+    BulletFarm/src
+    V8Engine/vendor/spdlog/include
+    V8Engine/src
+    V8Engine/vendor/GLFW/include
+    V8Engine/vendor/Glad/include
+    V8Engine/vendor/ImGui
+    UnitTest/vendor/googletest/googletest/include
+    UnitTest/vendor/googletest/googletest
+)
 
-# Use the custom directories
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${OBJ_DIR})
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${OBJ_DIR})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
-set(CMAKE_VS_INTDIR ${OBJ_DIR})
-
-message(STATUS "Build Citadel, version: ${Citadel_VERSION_MAJOR}.${Citadel_VERSION_MINOR}.${Citadel_VERSION_PATCH}.${Citadel_VERSION_TWEAK}")
-message(STATUS "${OUTPUT_DIR}")
-message(STATUS "${OBJ_DIR}")
-
-# message(${CMAKE_BINARY_DIR})
-# message(${CMAKE_SYSTEM_NAME})
-# message(${CMAKE_BUILD_TYPE})
-# message(${CMAKE_SYSTEM_PROCESSOR})
-
-configure_file(CitadelConfig.h.in CitadelConfig.h)
-
-# add Library
+# Add subdirectories
+add_subdirectory(BulletFarm)
 add_subdirectory(V8Engine)
+add_subdirectory(UnitTest)
+add_subdirectory(V8Engine/vendor/GLFW)
+add_subdirectory(V8Engine/vendor/Glad)
+add_subdirectory(V8Engine/vendor/ImGui)
+add_subdirectory(UnitTest/vendor/googletest)
 
-# add Exe
-add_subdirectory(Citadel)
+# Citadel project
+file(GLOB_RECURSE CITADEL_SOURCES "Citadel/src/*.cpp" "Citadel/src/*.h")
+
+add_executable(Citadel ${CITADEL_SOURCES})
+
+target_include_directories(Citadel PRIVATE
+    V8Engine/vendor/spdlog/include
+    V8Engine/src
+    BulletFarm/src
+)
+
+target_link_libraries(Citadel PRIVATE
+    BulletFarm
+    V8Engine
+)
+
+# Configuration-specific settings
+target_compile_definitions(Citadel PRIVATE
+    V8_PLATFORM_WINDOWS
+    $<$<CONFIG:Debug>:CITADEL_DEBUG>
+    $<$<CONFIG:Release>:CITADEL_RELEASE>
+    $<$<CONFIG:Dist>:CITADEL_DIST>
+)
+
+set_target_properties(Citadel PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin/Debug
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/Release
+    RUNTIME_OUTPUT_DIRECTORY_DIST ${CMAKE_BINARY_DIR}/bin/Dist
+)

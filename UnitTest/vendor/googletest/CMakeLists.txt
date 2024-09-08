@@ -1,36 +1,20 @@
-# Note: CMake support is community-based. The maintainers do not use CMake
-# internally.
+project(GoogleTest)
 
-cmake_minimum_required(VERSION 3.13)
+file(GLOB_RECURSE GTEST_SOURCES "googletest/src/*.cc" "googletest/include/gtest/*.h")
 
-project(googletest-distribution)
-set(GOOGLETEST_VERSION 1.15.2)
+add_library(GoogleTest STATIC ${GTEST_SOURCES})
 
-if(NOT CYGWIN AND NOT MSYS AND NOT ${CMAKE_SYSTEM_NAME} STREQUAL QNX)
-  set(CMAKE_CXX_EXTENSIONS OFF)
-endif()
+target_include_directories(GoogleTest PRIVATE
+    googletest/include
+    googletest
+)
 
-enable_testing()
+target_compile_definitions(GoogleTest PRIVATE
+    V8_PLATFORM_WINDOWS
+)
 
-include(CMakeDependentOption)
-include(GNUInstallDirs)
-
-# Note that googlemock target already builds googletest.
-option(BUILD_GMOCK "Builds the googlemock subproject" ON)
-option(INSTALL_GTEST "Enable installation of googletest. (Projects embedding googletest may want to turn this OFF.)" ON)
-option(GTEST_HAS_ABSL "Use Abseil and RE2. Requires Abseil and RE2 to be separately added to the build." OFF)
-
-if(GTEST_HAS_ABSL)
-  if(NOT TARGET absl::base)
-    find_package(absl REQUIRED)
-  endif()
-  if(NOT TARGET re2::re2)
-    find_package(re2 REQUIRED)
-  endif()
-endif()
-
-if(BUILD_GMOCK)
-  add_subdirectory( googlemock )
-else()
-  add_subdirectory( googletest )
-endif()
+set_target_properties(GoogleTest PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin/Debug
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/Release
+    RUNTIME_OUTPUT_DIRECTORY_DIST ${CMAKE_BINARY_DIR}/bin/Dist
+)

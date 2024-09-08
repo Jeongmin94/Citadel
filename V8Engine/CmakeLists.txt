@@ -1,36 +1,43 @@
-# Startup V8Engine Project
-cmake_minimum_required(VERSION 3.30)
+project(V8Engine)
 
-file(GLOB_RECURSE V8Engine_SOURCES "src/*.cpp" "src/*.h")
+file(GLOB_RECURSE V8ENGINE_SOURCES "src/*.cpp" "src/*.h")
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-message(STATUS "Build V8Engine")
-
-add_library(V8Engine SHARED
-    ${V8Engine_SOURCES}
-)
-
-set_target_properties(V8Engine PROPERTIES LINKER_LANGUAGE CXX)
+add_library(V8Engine SHARED ${V8ENGINE_SOURCES})
 
 target_include_directories(V8Engine PRIVATE
     vendor/spdlog/include
+    src
+    BulletFarm/src
+    V8Engine/vendor/GLFW/include
+    V8Engine/vendor/Glad/include
+    V8Engine/vendor/ImGui
+)
+
+target_link_libraries(V8Engine PRIVATE
+    BulletFarm
+    GLFW
+    Glad
+    ImGui
+    opengl32
 )
 
 target_compile_definitions(V8Engine PRIVATE
-    V8_PLATFORM_WND
+    V8_PLATFORM_WINDOWS
     V8_BUILD_DLL
+    GLFW_INCLUDE_NONE
+    IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+    $<$<CONFIG:Debug>:CITADEL_DEBUG>
+    $<$<CONFIG:Release>:CITADEL_RELEASE>
+    $<$<CONFIG:Dist>:CITADEL_DIST>
 )
 
-target_compile_options(V8Engine PRIVATE
-    $<$<CONFIG:Debug>:-DCITADEL_DEBUG>
-    $<$<CONFIG:Release>:-DCITADEL_RELEASE>
-    $<$<CONFIG:Dist>:-DCITADEL_DIST>
+set_target_properties(V8Engine PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin/Debug
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/Release
+    RUNTIME_OUTPUT_DIRECTORY_DIST ${CMAKE_BINARY_DIR}/bin/Dist
 )
 
-target_link_options(V8Engine PRIVATE
-    $<$<CONFIG:Debug>:-g>
-    $<$<CONFIG:Release>:-O2>
-    $<$<CONFIG:Dist>:-O2>
+add_custom_command(TARGET V8Engine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:V8Engine> ${CMAKE_BINARY_DIR}/bin/Debug/Citadel
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:V8Engine> ${CMAKE_BINARY_DIR}/bin/Debug/UnitTest
 )
