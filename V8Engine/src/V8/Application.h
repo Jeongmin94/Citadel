@@ -1,7 +1,7 @@
 #pragma once
 
-#include "V8/Core/Core.h"
 #include "BulletFarm.h"
+#include "V8/Core/Core.h"
 
 #include <memory>
 
@@ -27,6 +27,8 @@ public:
 
     void OnEvent(Event& event);
 
+public:
+    void Validate() const;
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
 

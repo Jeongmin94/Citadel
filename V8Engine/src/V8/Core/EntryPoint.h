@@ -25,10 +25,7 @@ int main(int argc, char** argv)
     CLI_WARN("Initialized CLI Log!");
 
     auto app = V8::CreateApplication();
-
-    const auto& appInfo = typeid(*app);
-
-    CORE_DEBUG("{0}", appInfo.name());
+    app->Validate();
 
     app->Run();
     delete app;

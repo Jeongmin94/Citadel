@@ -103,8 +103,8 @@ void ImGuiLayer::OnGUIRender()
 
 void ImGuiLayer::OnEvent(Event& e)
 {
-    CORE_INFO("{0}", e.StaticType().ToString());
-    CORE_INFO("{0}", e.GetType().ToString());
+    //CORE_INFO("{0}", e.StaticType().ToString());
+    //CORE_INFO("{0}", e.GetType().ToString());
 
     e.SetIsHandled(m_HandlerRegistry->HandleEvent(e));
 }

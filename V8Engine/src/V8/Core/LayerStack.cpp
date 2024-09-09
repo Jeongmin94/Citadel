@@ -5,7 +5,7 @@
 
 namespace V8
 {
-LayerStack::LayerStack() {}
+LayerStack::LayerStack() { CORE_INFO("Initializing LayerStack"); }
 
 // Currently Layers in LayerStack are deleted only Application is shutdowned
 LayerStack::~LayerStack()
@@ -26,8 +26,7 @@ LayerStack::~LayerStack()
 
 void LayerStack::PushLayer(Layer* layer)
 {
-    m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex, layer);
-    ++m_LayerInsertIndex;
+    m_Layers.emplace(m_Layers.begin() + m_LayerInsertIndex++, layer);
 }
 
 void LayerStack::PushOverlay(Layer* overlay) { m_Layers.emplace_back(overlay); }
@@ -51,6 +50,18 @@ void LayerStack::PopOverlay(Layer* overlay)
     {
         m_Layers.erase(it);
     }
+}
+
+std::string LayerStack::ToString() const
+{
+    std::stringstream ss;
+    ss << "\n[LayerStack Info]\n";
+    for (auto layer : m_Layers)
+    {
+        ss << " - " << layer->GetName() << '\n';
+    }
+
+    return ss.str();
 }
 
 } // namespace V8

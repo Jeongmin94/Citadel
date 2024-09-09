@@ -20,6 +20,8 @@ Application* Application::s_Instance = nullptr;
 
 Application::Application()
 {
+    CORE_INFO("Application Initializing");
+
     CORE_ASSERT(!s_Instance, "Application already exists!");
     s_Instance = this;
 
@@ -28,7 +30,9 @@ Application::Application()
 
     m_LayerStack = new LayerStack;
     m_ImGuiLayer = new ImGuiLayer;
-    PushLayer(m_ImGuiLayer);
+    PushOverlay(m_ImGuiLayer);
+
+    CORE_INFO("Application Initializing Finished");
 }
 
 Application::~Application()
@@ -58,8 +62,8 @@ void Application::Run()
         }
         m_ImGuiLayer->End();
 
-        auto [x, y] = Input::GetMousePos();
-        CORE_TRACE("{0}, {1}", x, y);
+        // auto [x, y] = Input::GetMousePos();
+        // CORE_TRACE("{0}, {1}", x, y);
 
         m_Window->OnUpdate();
     }
@@ -80,7 +84,13 @@ void Application::OnEvent(Event& event)
             break;
     }
 
-    CORE_TRACE("{0}", event.ToString());
+    // CORE_TRACE("{0}", event.ToString());
+}
+
+void Application::Validate() const
+{
+    CORE_ASSERT(m_LayerStack, "LayerStack is nullptr");
+    CORE_INFO("{0}", m_LayerStack->ToString());
 }
 
 void Application::PushLayer(Layer* layer)
