@@ -8,13 +8,18 @@ workspace "Citadel"
 		"Dist"
 	}
 
-outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}" 
+outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+newoption {
+	trigger = "UseImGuiDocking",
+	description = "Enable ImGui Docking",
+}
 
 project "BulletFarm"
 	location "BulletFarm"
 	kind "StaticLib"
 	language "C++"
-	staticruntime "on"
+	staticruntime "on" 
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -60,14 +65,29 @@ IncludeDir["BulletFarm"] = "BulletFarm/src"
 IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
 IncludeDir["Glad"] = "V8Engine/vendor/Glad/include"
 IncludeDir["ImGui"] = "V8Engine/vendor/ImGui"
+IncludeDir["ImGuiDocking"] = "V8Engine/vendor/ImGui-Docking"
 IncludeDir["glm"] = "V8Engine/vendor/math/glm"
 IncludeDir["gtest"] = "UnitTest/vendor/googletest/googletest"
 
 -- include premake5.lua files in directory
 include "V8Engine/vendor/GLFW"
 include "V8Engine/vendor/Glad"
-include "V8Engine/vendor/ImGui"
 include "UnitTest/vendor/googletest"
+
+ImGuiDir = ""
+ImGuiLink = ""
+if _OPTIONS["UseImGuiDocking"] then
+	include "V8Engine/vendor/ImGui-Docking"
+	ImGuiDir = IncludeDir.ImGuiDocking
+	ImGuiLink = "ImGuiDocking"
+else
+	include "V8Engine/vendor/ImGui"
+	ImGuiDir = IncludeDir.ImGui
+	ImGuiLink = "ImGui"
+end
+
+print(ImGuiDir)
+print(ImGuiLink)
 
 project "V8Engine"
 	location "V8Engine" 
@@ -98,8 +118,9 @@ project "V8Engine"
 		"%{IncludeDir.BulletFarm}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
+
+		ImGuiDir,
 	}
 
 	links
@@ -107,8 +128,9 @@ project "V8Engine"
 		"BulletFarm",
 		"GLFW",			-- project GLFW
 		"Glad", 		-- project Glad
-		"ImGui",		-- project ImGui
-		"opengl32.lib"
+		"opengl32.lib",
+
+		ImGuiLink,
 	}
 
 	filter "system:windows"
@@ -121,7 +143,11 @@ project "V8Engine"
 			"V8_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
+
 		}
+		if _OPTIONS["UseImGuiDocking"] then
+			defines { "USING_IMGUI_DOCK" }
+		end
 
 	postbuildcommands
 	{

@@ -7,6 +7,7 @@
 #include "V8/Core/Window.h"
 #include "V8/Events/ApplicationEvent.h"
 #include "V8/Events/Event.h"
+#include "V8/GUI/ImGuiLayer.h"
 
 #include "Platform/Windows/WindowsInput.h"
 
@@ -26,6 +27,8 @@ Application::Application()
     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
     m_LayerStack = new LayerStack;
+    m_ImGuiLayer = new ImGuiLayer;
+    PushLayer(m_ImGuiLayer);
 }
 
 Application::~Application()
@@ -33,7 +36,7 @@ Application::~Application()
     if (m_LayerStack)
         delete m_LayerStack;
 
-   Input::Get().OnDestroy();
+    Input::Get().OnDestroy();
 }
 
 void Application::Run()
@@ -47,6 +50,13 @@ void Application::Run()
         {
             layer->OnUpdate();
         }
+
+        m_ImGuiLayer->Begin();
+        for (Layer* layer : *m_LayerStack)
+        {
+            layer->OnGUIRender();
+        }
+        m_ImGuiLayer->End();
 
         auto [x, y] = Input::GetMousePos();
         CORE_TRACE("{0}, {1}", x, y);

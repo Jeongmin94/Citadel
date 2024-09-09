@@ -49,5 +49,29 @@ if exist "%imgui%" (
     echo file is missing: %imgui%
 )
 
-call vendor\bin\premake\premake5.exe vs2022
+REM ImGuiDocking premake5
+
+set imguiDocking=Scripts\ImGuiDockingpremake5.lua
+set imguiDockingDestination=V8Engine\vendor\ImGui-Docking\premake5.lua
+
+echo Init premake5 for ImGui-Docking
+
+if exist "%imguiDocking%" (
+    if not exist "%imguiDockingDestination%" (
+        copy "%imguiDocking%" "%imguiDockingDestination%"
+        echo copy done: %imguiDockingDestination%
+    ) else (
+        fc "%imguiDocking%" "%imguiDockingDestination%" > nul
+        if errorlevel 1 (
+            copy "%imguiDocking%" "%imguiDockingDestination%"
+            echo file updated: %imguiDockingDestination%
+        ) else (
+            echo premake5.lua for ImGui-Docking script is already up to date
+        )
+    )
+) else (
+    echo file is missing: %imguiDocking%
+)
+
+call vendor\bin\premake\premake5.exe vs2022 --UseImGuiDocking
 PAUSE

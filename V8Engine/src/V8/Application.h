@@ -14,6 +14,7 @@ class WindowClosedEvent;
 
 class Layer;
 class LayerStack;
+class ImGuiLayer;
 
 class V8API Application
 {
@@ -38,6 +39,7 @@ private:
     std::unique_ptr<IWindow> m_Window;
     bool m_IsRunning = true;
     LayerStack* m_LayerStack = nullptr;
+    ImGuiLayer* m_ImGuiLayer = nullptr;
 
     static Application* s_Instance;
 };

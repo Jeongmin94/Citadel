@@ -14,6 +14,8 @@ void Layer::OnDetach() {}
 
 void Layer::OnUpdate() {}
 
+void Layer::OnGUIRender() {}
+
 void Layer::OnEvent(Event& event) {}
 
 } // namespace V8

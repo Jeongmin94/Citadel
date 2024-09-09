@@ -14,6 +14,7 @@ public:
     virtual void OnAttach(); // add to Layer Stack
     virtual void OnDetach(); // remove from Layer Stack
     virtual void OnUpdate();
+    virtual void OnGUIRender();
     virtual void OnEvent(Event& event);
 
     inline const std::string& GetName() const { return m_DebugName; }

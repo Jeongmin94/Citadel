@@ -49,6 +49,17 @@ void ImGuiLayer::OnAttach()
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        style.WindowRounding = 0.0f;
+        style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+    }
+
     // clang-format off
     io.KeyMap[ImGuiKey_Tab]             = GLFW_KEY_TAB;
     io.KeyMap[ImGuiKey_LeftArrow]       = GLFW_KEY_LEFT;
@@ -84,25 +95,10 @@ void ImGuiLayer::OnDetach()
     // glfwTerminate(); this must be called when the last glfwWindow's closing!
 }
 
-void ImGuiLayer::OnUpdate()
+void ImGuiLayer::OnGUIRender()
 {
-    ImGuiIO& io = ImGui::GetIO();
-    Application& app = Application::Get();
-    io.DisplaySize = ImVec2((float32)app.GetWindow().GetWidth(),
-                            (float32)app.GetWindow().GetHeight());
-
-    float32 time = (float32)glfwGetTime();
-    io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
-    m_Time = time;
-
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui::NewFrame();
-
     static bool show = true;
     ImGui::ShowDemoWindow(&show);
-
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 }
 
 void ImGuiLayer::OnEvent(Event& e)
@@ -111,6 +107,37 @@ void ImGuiLayer::OnEvent(Event& e)
     CORE_INFO("{0}", e.GetType().ToString());
 
     e.SetIsHandled(m_HandlerRegistry->HandleEvent(e));
+}
+
+void ImGuiLayer::Begin()
+{
+    ImGuiIO& io = ImGui::GetIO();
+    Application& app = Application::Get();
+    io.DisplaySize = ImVec2((float32)app.GetWindow().GetWidth(),
+                            (float32)app.GetWindow().GetHeight());
+
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui::NewFrame();
+}
+
+void ImGuiLayer::End()
+{
+    ImGuiIO& io = ImGui::GetIO();
+
+    float32 time = (float32)glfwGetTime();
+    io.DeltaTime = m_Time > 0.0 ? (time - m_Time) : (1.0f / 60.0f);
+    m_Time = time;
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        GLFWwindow* backup_current_text = glfwGetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        glfwMakeContextCurrent(backup_current_text);
+    }
 }
 
 // !TODO: MouseCodeMapper »ç¿ë
