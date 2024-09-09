@@ -17,7 +17,7 @@ struct WindowProps
     uint32 Height;
 
     WindowProps(const std::string& title = "Citadel Engine",
-                uint32 width = 1200, uint32 height = 720)
+                uint32 width = 2400, uint32 height = 1440)
         : Title(title), Width(width), Height(height){};
 };
 

@@ -86,8 +86,9 @@ else
 	ImGuiLink = "ImGui"
 end
 
-print(ImGuiDir)
-print(ImGuiLink)
+print("ImGui Information")
+print("--include path: " .. ImGuiDir)
+print("--project: " .. ImGuiLink)
 
 project "V8Engine"
 	location "V8Engine" 
@@ -145,6 +146,7 @@ project "V8Engine"
 			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
 
 		}
+
 		if _OPTIONS["UseImGuiDocking"] then
 			defines { "USING_IMGUI_DOCK" }
 		end
