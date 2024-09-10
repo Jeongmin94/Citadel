@@ -20,8 +20,8 @@
 	#define CLI_ASSERT(x, ...) if(!(x)) { CLI_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
 	#define CORE_ASSERT(x, ...) if(!(x)) { CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
 #else
-	#define V8_ASSERT(x, ...)
-	#define V8_CORE_ASSERT(x, ...)
+	#define CLI_ASSERT(x, ...)
+	#define CORE_ASSERT(x, ...)
 #endif
 
 
