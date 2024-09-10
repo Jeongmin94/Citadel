@@ -3,11 +3,15 @@
 // clang-format off
 
 #ifdef V8_PLATFORM_WINDOWS
+#ifdef V8_DYNAMIC_LINK
 	#ifdef V8_BUILD_DLL
 		#define V8API __declspec(dllexport)
 	#else
 		#define V8API __declspec(dllimport)
 	#endif
+#else
+	#define V8API
+#endif
 #else
 	#error Currently V8Engine supports only Winodws!
 #endif

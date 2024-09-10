@@ -19,6 +19,7 @@ project "BulletFarm"
 	location "BulletFarm"
 	kind "StaticLib"
 	language "C++"
+	cppdialect "C++20"
 	staticruntime "on" 
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
@@ -36,7 +37,6 @@ project "BulletFarm"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 
 		defines
@@ -92,9 +92,10 @@ print("--project: " .. ImGuiLink)
 
 project "V8Engine"
 	location "V8Engine" 
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -108,8 +109,6 @@ project "V8Engine"
 	{
 		"%{prj.name}/src/**.h",
         "%{prj.name}/src/**.cpp",
-		-- "%{prj.name}/vendor/math/glm/**.hpp",
-		-- "%{prj.name}/vendor/math/glm/**.inl",
 	}
 
 	includedirs
@@ -135,7 +134,6 @@ project "V8Engine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 
 		defines
@@ -143,40 +141,34 @@ project "V8Engine"
 			"V8_PLATFORM_WINDOWS", 
 			"V8_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
-			-- "IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
-			"IMGUI_API=__declspec(dllexport)",
+			"_CRT_SECURE_NO_WARNINGS",
 		}
 
 		if _OPTIONS["UseImGuiDocking"] then
 			defines { "USING_IMGUI_DOCK" }
 		end
 
-	postbuildcommands
-	{
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Citadel"),
-		("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/UnitTest")
-	}
-
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "CITADEL_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "CITADEL_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 
 project "UnitTest"
 	location "UnitTest"
 	kind "ConsoleApp"
 	language "C++"
+	cppdialect "C++20"
 	staticruntime "on"
 
 	pchheader "utpch.h"
@@ -208,11 +200,9 @@ project "UnitTest"
 	{
 		"GoogleTest",
 		"V8Engine",
-		"BulletFarm",
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 
 		defines
@@ -224,23 +214,24 @@ project "UnitTest"
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "CITADEL_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "CITADEL_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 project "Citadel"
 	location "Citadel"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++20"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -267,26 +258,25 @@ project "Citadel"
 	}
 
 	filter "system:windows"
-		cppdialect "C++20"
 		systemversion "latest"
 
 		defines
 		{
 			"V8_PLATFORM_WINDOWS",
-			"IMGUI_API=__declspec(dllimport)",
+			"_CRT_SECURE_NO_WARNINGS",
 		}
 
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "CITADEL_RELEASE"
 		runtime "Release"
-		optimize "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "CITADEL_DIST"
 		runtime "Release"
-		optimize "On"
+		optimize "on"

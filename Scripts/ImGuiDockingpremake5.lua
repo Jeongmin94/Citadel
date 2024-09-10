@@ -18,22 +18,11 @@ project "ImGuiDocking"
 		"imstb_rectpack.h",
 		"imstb_textedit.h",
 		"imstb_truetype.h",
-
-		-- impl
-		-- "backends/imgui_impl_glfw.h",
-		-- "backends/imgui_impl_glfw.cpp",
-		-- "backends/imgui_impl_opengl3.h",
-		-- "backends/imgui_impl_opengl3.cpp",
 	}
 
 	filter "system:windows"
 		systemversion "latest"
-		staticruntime "On"
-
-		defines
-		{
-			"IMGUI_API=__declspec(dllexport)",
-		}
+		staticruntime "on"
 		
 	filter "configurations:Debug"
 		runtime "Debug"
