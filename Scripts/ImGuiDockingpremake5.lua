@@ -30,10 +30,10 @@ project "ImGuiDocking"
 		systemversion "latest"
 		staticruntime "On"
 
-		-- defines
-		-- {
-		-- 	"IMGUI_API=__declspec(dllexport)",
-		-- }
+		defines
+		{
+			"IMGUI_API=__declspec(dllexport)",
+		}
 		
 	filter "configurations:Debug"
 		runtime "Debug"

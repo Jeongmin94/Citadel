@@ -143,8 +143,8 @@ project "V8Engine"
 			"V8_PLATFORM_WINDOWS", 
 			"V8_BUILD_DLL",
 			"GLFW_INCLUDE_NONE",
-			"IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
-
+			-- "IMGUI_IMPL_OPENGL_LOADER_CUSTOM",
+			"IMGUI_API=__declspec(dllexport)",
 		}
 
 		if _OPTIONS["UseImGuiDocking"] then
@@ -255,6 +255,7 @@ project "Citadel"
 	{
 		"V8Engine/vendor/spdlog/include",
 		"V8Engine/src",
+		"V8Engine/vendor",
 		"%{IncludeDir.BulletFarm}",
 		"%{IncludeDir.glm}",
 	}
@@ -271,7 +272,8 @@ project "Citadel"
 
 		defines
 		{
-			"V8_PLATFORM_WINDOWS"
+			"V8_PLATFORM_WINDOWS",
+			"IMGUI_API=__declspec(dllimport)",
 		}
 
 	filter "configurations:Debug"

@@ -1,5 +1,7 @@
 #include <V8Engine.h>
 
+#include "ImGui-Docking/imgui.h"
+
 #include "Test_glm.h"
 
 class TestLayer : public V8::Layer
@@ -7,6 +9,13 @@ class TestLayer : public V8::Layer
 public:
     TestLayer(const char* name) : Layer(name){};
     TestLayer() : Layer("Example") { auto cam = camera(5.0f, {0.5f, 0.5f}); }
+
+    virtual void OnGUIRender() override
+    {
+        ImGui::Begin("Test");
+        ImGui::Text("Hello World");
+        ImGui::End();
+    }
 
     void OnEvent(V8::Event& e) override
     {
