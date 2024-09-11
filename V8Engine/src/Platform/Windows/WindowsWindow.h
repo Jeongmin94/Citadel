@@ -2,7 +2,9 @@
 
 #include "V8/Core/Window.h"
 
-class GLFWwindow;
+#include "V8/Renderer/GraphicsContext.h"
+
+struct GLFWwindow;
 
 namespace V8
 {
@@ -36,6 +38,7 @@ private:
 
 private:
     GLFWwindow* m_Window;
+    GraphicsContext* m_Context;
 
     struct WindowData
     {

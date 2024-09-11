@@ -7,6 +7,8 @@
 #include "V8/Events/MouseEvent.h"
 #include "WindowsWindow.h"
 
+#include "Platform/OpenGL/OpenGLContext.h"
+
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
@@ -35,7 +37,8 @@ WindowsWindow::~WindowsWindow() { Shutdown(); }
 void WindowsWindow::OnUpdate()
 {
     glfwPollEvents();
-    glfwSwapBuffers(m_Window);
+
+    m_Context->SwapBuffers();
 }
 
 void WindowsWindow::SetVSync(bool isEnabled)
@@ -75,12 +78,13 @@ void WindowsWindow::Init(const WindowProps& props)
 
     m_Window = glfwCreateWindow((uint32)props.Width, (uint32)props.Height,
                                 m_Data.Title.c_str(), nullptr, nullptr);
-    glfwMakeContextCurrent(m_Window);
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    CORE_ASSERT(status, "Failed to initialize Glad!");
+
+    // !TODO: delete m_Context
+    m_Context = new OpenGLContext(m_Window);
+    m_Context->Init();
+
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
-
     SetWindowCallbacks(m_Window);
 }
 
@@ -90,6 +94,9 @@ void WindowsWindow::Shutdown()
 
     // !TODO: glfwTerminate must be called when all glfw window are closed
     glfwTerminate();
+
+    if (m_Context)
+        delete m_Context;
 }
 
 void WindowsWindow::SetWindowCallbacks(GLFWwindow* titleWindow)
