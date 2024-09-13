@@ -16,7 +16,7 @@ class Layer;
 class LayerStack;
 class ImGuiLayer;
 
-class Shader;
+class IShader;
 
 class V8API Application
 {
@@ -46,7 +46,7 @@ private:
     ImGuiLayer* m_ImGuiLayer = nullptr;
 
     uint32 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
-    std::unique_ptr<Shader> m_Shader;
+    std::unique_ptr<IShader> m_Shader;
 
 private:
     static Application* s_Instance;

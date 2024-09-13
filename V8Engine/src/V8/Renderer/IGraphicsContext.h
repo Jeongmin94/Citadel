@@ -4,7 +4,7 @@ namespace V8
 {
 
 // Interface for Graphics Context
-class GraphicsContext
+class IGraphicsContext
 {
 public:
     virtual void Init() = 0;

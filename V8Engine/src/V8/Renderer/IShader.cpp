@@ -1,13 +1,13 @@
 #include "v8pch.h"
 
-#include "Shader.h"
+#include "IShader.h"
 
 #include <glad/glad.h>
 
 namespace V8
 {
 
-Shader::Shader(const std::string& vertexSrc, const std::string& pixelSrc)
+IShader::IShader(const std::string& vertexSrc, const std::string& pixelSrc)
 {
     // create an empty vertex shader handle
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -105,10 +105,10 @@ Shader::Shader(const std::string& vertexSrc, const std::string& pixelSrc)
     glDetachShader(program, fragmentShader);
 }
 
-Shader::~Shader() { glDeleteProgram(m_RendererId); }
+IShader::~IShader() { glDeleteProgram(m_RendererId); }
 
-void Shader::Bind() const { glUseProgram(m_RendererId); }
+void IShader::Bind() const { glUseProgram(m_RendererId); }
 
-void Shader::UnBind() const { glUseProgram(0); }
+void IShader::UnBind() const { glUseProgram(0); }
 
 } // namespace V8

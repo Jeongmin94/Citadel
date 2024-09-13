@@ -8,7 +8,7 @@
 #include "V8/Events/ApplicationEvent.h"
 #include "V8/Events/Event.h"
 #include "V8/GUI/ImGuiLayer.h"
-#include "V8/Renderer/Shader.h"
+#include "V8/Renderer/IShader.h"
 
 #include "Platform/Windows/WindowsInput.h"
 
@@ -83,7 +83,7 @@ Application::Application()
         }
     )";
 
-    m_Shader = std::make_unique<Shader>(vertexSrc, fragmentSrc);
+    m_Shader = std::make_unique<IShader>(vertexSrc, fragmentSrc);
 }
 
 Application::~Application()

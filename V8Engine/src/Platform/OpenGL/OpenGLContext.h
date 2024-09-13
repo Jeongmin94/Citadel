@@ -7,7 +7,7 @@ struct GLFWwindow;
 namespace V8
 {
 
-class OpenGLContext : public GraphicsContext
+class OpenGLContext : public IGraphicsContext
 {
 public:
     OpenGLContext(GLFWwindow* windowHandle);
