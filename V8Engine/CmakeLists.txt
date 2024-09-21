@@ -1,31 +1,38 @@
 project(V8Engine)
 
+add_subdirectory(vendor/Glad)
+add_subdirectory(vendor/GLFW)
+add_subdirectory(vendor/ImGui-Docking)
+
 file(GLOB_RECURSE V8ENGINE_SOURCES "src/*.cpp" "src/*.h")
 
-add_library(V8Engine SHARED ${V8ENGINE_SOURCES})
+add_library(V8Engine STATIC ${V8ENGINE_SOURCES} src/v8pch.cpp)
 
 target_include_directories(V8Engine PRIVATE
     vendor/spdlog/include
     src
-    BulletFarm/src
-    V8Engine/vendor/GLFW/include
-    V8Engine/vendor/Glad/include
-    V8Engine/vendor/ImGui
+    ../BulletFarm/src
+    vendor/GLFW/include
+    vendor/Glad/include
+    vendor/ImGui-Docking
+    vendor/math/glm
 )
 
 target_link_libraries(V8Engine PRIVATE
     BulletFarm
+    ImGuiDocking
     GLFW
     Glad
-    ImGui
-    opengl32
+    "-framework OpenGL"
 )
 
+target_precompile_headers(V8Engine PRIVATE src/v8pch.h)
+
 target_compile_definitions(V8Engine PRIVATE
-    V8_PLATFORM_WINDOWS
+    V8_PLATFORM_MAC
     V8_BUILD_DLL
     GLFW_INCLUDE_NONE
-    IMGUI_IMPL_OPENGL_LOADER_CUSTOM
+    USING_IMGUI_DOCK
     $<$<CONFIG:Debug>:CITADEL_DEBUG>
     $<$<CONFIG:Release>:CITADEL_RELEASE>
     $<$<CONFIG:Dist>:CITADEL_DIST>
@@ -35,9 +42,4 @@ set_target_properties(V8Engine PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin/Debug
     RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin/Release
     RUNTIME_OUTPUT_DIRECTORY_DIST ${CMAKE_BINARY_DIR}/bin/Dist
-)
-
-add_custom_command(TARGET V8Engine POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:V8Engine> ${CMAKE_BINARY_DIR}/bin/Debug/Citadel
-    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:V8Engine> ${CMAKE_BINARY_DIR}/bin/Debug/UnitTest
 )

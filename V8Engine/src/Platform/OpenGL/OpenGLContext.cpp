@@ -14,6 +14,8 @@ OpenGLContext::OpenGLContext(GLFWwindow* windowHandle)
     CORE_ASSERT(windowHandle, "Window Handle is null!");
 }
 
+OpenGLContext::~OpenGLContext() {}
+
 void OpenGLContext::Init()
 {
     glfwMakeContextCurrent(m_WindowHandle);

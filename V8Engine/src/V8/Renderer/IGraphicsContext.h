@@ -7,6 +7,9 @@ namespace V8
 class IGraphicsContext
 {
 public:
+    virtual ~IGraphicsContext() = default;
+
+public:
     virtual void Init() = 0;
     virtual void SwapBuffers() = 0;
 };

@@ -1,16 +1,18 @@
 project(UnitTest)
 
+add_subdirectory(vendor/googletest)
+
 file(GLOB_RECURSE UNITTEST_SOURCES "src/*.cpp" "src/*.h")
 
-add_executable(UnitTest ${UNITTEST_SOURCES})
+add_executable(UnitTest ${UNITTEST_SOURCES} src/UnitTest.cpp)
 
 target_include_directories(UnitTest PRIVATE
     src
-    V8Engine/vendor/spdlog/include
-    V8Engine/src
-    BulletFarm/src
-    UnitTest/vendor/googletest/googletest/include
-    UnitTest/vendor/googletest/googletest
+    ../V8Engine/vendor/spdlog/include
+    ../V8Engine/src
+    ../BulletFarm/src
+    vendor/googletest/googletest/include
+    vendor/googletest/googletest
 )
 
 target_link_libraries(UnitTest PRIVATE
@@ -19,8 +21,10 @@ target_link_libraries(UnitTest PRIVATE
     BulletFarm
 )
 
+target_precompile_headers(UnitTest PRIVATE src/utpch.h)
+
 target_compile_definitions(UnitTest PRIVATE
-    V8_PLATFORM_WINDOWS
+    V8_PLATFORM_MAC
     UNIT_TEST
     $<$<CONFIG:Debug>:CITADEL_DEBUG>
     $<$<CONFIG:Release>:CITADEL_RELEASE>

@@ -10,7 +10,7 @@ target_include_directories(GoogleTest PRIVATE
 )
 
 target_compile_definitions(GoogleTest PRIVATE
-    V8_PLATFORM_WINDOWS
+    V8_PLATFORM_MAC
 )
 
 set_target_properties(GoogleTest PROPERTIES

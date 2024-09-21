@@ -19,10 +19,10 @@ public:
     template <typename U>
     struct Deductor<U, std::void_t<typename U::This>>
     {
-        using Type = U::This;
+        using Type = typename U::This;
     };
 
-    using Type = Deductor<T>::Type;
+    using Type = typename Deductor<T>::Type;
 };
 
 class Type;
@@ -31,11 +31,11 @@ class Type;
 template <typename T>
 struct TypeGenerator
 {
-    TypeGenerator(const char* _name) : m_Name(_name)
+    explicit TypeGenerator(const char* _name) : m_Name(_name)
     {
         if constexpr (Reflection::HasSuper<T>)
         {
-            m_SuperType = &(typename T::Super::StaticType());
+            m_SuperType = &(T::Super::StaticType());
         }
         else
         {
