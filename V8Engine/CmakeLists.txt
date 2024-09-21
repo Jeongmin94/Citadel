@@ -21,9 +21,8 @@ target_include_directories(V8Engine PRIVATE
 target_link_libraries(V8Engine PRIVATE
     BulletFarm
     ImGuiDocking
-    GLFW
+    glfw
     Glad
-    "-framework OpenGL"
 )
 
 target_precompile_headers(V8Engine PRIVATE src/v8pch.h)
