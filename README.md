@@ -1,6 +1,14 @@
 # Citadel
 
-## 1. Getting Started
+## 0. 사용 라이브러리
+
+- OpenGL, GLFW, Glad, glm
+- ImGui, ImGui-Docking
+- spdlog
+- googletest
+- build system(Windows: premake5, Mac: CMake)
+
+## 1. 시작하기
 
 서브모듈로 GLFW, spdlog를 사용하고 있기 때문에 클론을 하기 위해 다음과 같은 명령어를 사용한다.
 
