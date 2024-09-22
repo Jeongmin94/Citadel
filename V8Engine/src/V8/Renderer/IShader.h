@@ -8,11 +8,11 @@ namespace V8
 {
 
 // Interface for Shader
-class Shader
+class IShader
 {
 public:
-    Shader(const std::string& vertexSrc, const std::string& pixelSrc);
-    virtual ~Shader();
+    IShader(const std::string& vertexSrc, const std::string& pixelSrc);
+    virtual ~IShader();
 
 public:
     void Bind() const;

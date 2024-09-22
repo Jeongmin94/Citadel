@@ -2,25 +2,25 @@
 
 // clang-format off
 
-#ifdef V8_PLATFORM_WINDOWS
-#ifdef V8_DYNAMIC_LINK
+#if defined(V8_PLATFORM_WINDOWS) || defined(V8_PLATFORM_MAC)
+    #ifdef V8_DYNAMIC_LINK
 	#ifdef V8_BUILD_DLL
-		#define V8API __declspec(dllexport)
+	    #define V8API __declspec(dllexport)
 	#else
-		#define V8API __declspec(dllimport)
+	    #define V8API __declspec(dllimport)
 	#endif
-#else
+    #else
 	#define V8API
-#endif
+    #endif
 #else
-	#error Currently V8Engine supports only Winodws!
+    #error Not Supported OS!
 #endif
 
 #ifdef CITADEL_DEBUG
 	#define V8_ENABLE_ASSERTS
 #endif
 
-#ifdef V8_ENABLE_ASSERTS
+#if defined(V8_ENABLE_ASSERTS) && defined(V8_PLATFORM_WINDOWS)
 	#define CLI_ASSERT(x, ...) if(!(x)) { CLI_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
 	#define CORE_ASSERT(x, ...) if(!(x)) { CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); }
 #else

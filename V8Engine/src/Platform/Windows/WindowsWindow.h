@@ -2,7 +2,7 @@
 
 #include "V8/Core/Window.h"
 
-#include "V8/Renderer/GraphicsContext.h"
+#include "V8/Renderer/IGraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -38,7 +38,7 @@ private:
 
 private:
     GLFWwindow* m_Window;
-    GraphicsContext* m_Context;
+    IGraphicsContext* m_Context;
 
     struct WindowData
     {

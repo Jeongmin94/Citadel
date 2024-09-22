@@ -4,8 +4,11 @@ namespace V8
 {
 
 // Interface for Graphics Context
-class GraphicsContext
+class IGraphicsContext
 {
+public:
+    virtual ~IGraphicsContext() = default;
+
 public:
     virtual void Init() = 0;
     virtual void SwapBuffers() = 0;

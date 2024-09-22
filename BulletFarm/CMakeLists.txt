@@ -9,7 +9,7 @@ target_include_directories(BulletFarm PRIVATE
 )
 
 target_compile_definitions(BulletFarm PRIVATE
-    V8_PLATFORM_WINDOWS
+    V8_PLATFORM_MAC
     $<$<CONFIG:Debug>:CITADEL_DEBUG>
     $<$<CONFIG:Release>:CITADEL_RELEASE>
     $<$<CONFIG:Dist>:CITADEL_DIST>
