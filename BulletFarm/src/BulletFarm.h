@@ -4,4 +4,4 @@
 #include "BulletFarm/Reflection/ReflectionConcepts.h"
 #include "BulletFarm/Reflection/ReflectionMacros.h"
 #include "BulletFarm/Reflection/ReflectionType.h"
- 
+#include "BulletFarm/ServiceLocator/ServiceLocator.h"

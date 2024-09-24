@@ -106,6 +106,8 @@ void Application::Run()
         glBindVertexArray(m_VertexArray);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
+        m_Shader->UnBind();
+
         for (Layer* layer : *m_LayerStack)
         {
             layer->OnUpdate();
