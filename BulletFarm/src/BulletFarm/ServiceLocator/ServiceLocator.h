@@ -16,6 +16,7 @@ public:
 public:
     void Clear();
 
+public:
     template <typename T>
     void RegisterInstance(T* Instance)
     {

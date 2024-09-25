@@ -19,6 +19,8 @@ namespace V8
 
 Application* Application::s_Instance = nullptr;
 
+// TODO: add layer for support windows, mac
+// TODO: add layer service to ServiceLocator
 Application::Application()
 {
     CORE_INFO("Application Initializing");

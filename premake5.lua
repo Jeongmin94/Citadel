@@ -249,6 +249,7 @@ project "Citadel"
 		"V8Engine/vendor",
 		"%{IncludeDir.BulletFarm}",
 		"%{IncludeDir.glm}",
+		ImGuiDir,
 	}
 
 	links

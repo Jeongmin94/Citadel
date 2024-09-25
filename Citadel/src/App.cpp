@@ -1,33 +1,20 @@
-// !TODO: change to '#include <imgui.h>'
-#include "ImGui-Docking/imgui.h"
-#include "Test_glm.h"
+#include <BulletFarm.h>
 
+#include <V8/GUI/ImGuiHeader.h>
 #include <V8Engine.h>
 
-class TestLayer : public V8::Layer
-{
-public:
-    TestLayer(const char* name) : Layer(name){};
-    TestLayer() : Layer("Example") { auto cam = camera(5.0f, {0.5f, 0.5f}); }
+#ifdef CITADEL_DEBUG
+#include "Test/CitadelTestLayer.h"
+#endif
 
-    virtual void OnGUIRender() override
-    {
-        ImGui::Begin("Test");
-        ImGui::Text("Hello World!!!");
-        ImGui::End();
-    }
-
-    void OnEvent(V8::Event& e) override
-    {
-        // CLI_TRACE("{0}", e.ToString());
-    }
-};
+// TODO: add configuration management
 
 class CitadelSandBox : public V8::Application
 {
 public:
     CitadelSandBox()
     {
+#ifdef CITADEL_DEBUG
         std::stringstream ss;
         for (int i = 0; i < 3; i++)
         {
@@ -35,6 +22,7 @@ public:
             PushLayer(new TestLayer(ss.str().c_str()));
             ss.str(std::string());
         }
+#endif
     }
     ~CitadelSandBox() override{};
 };
