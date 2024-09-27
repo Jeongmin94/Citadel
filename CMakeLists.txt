@@ -29,6 +29,7 @@ target_include_directories(Citadel PRIVATE
     V8Engine/vendor/spdlog/include
     V8Engine/src
     V8Engine/vendor
+    V8Engine/vendor/ImGui-Docking
     V8Engine/vendor/math/glm
     BulletFarm/src
 )

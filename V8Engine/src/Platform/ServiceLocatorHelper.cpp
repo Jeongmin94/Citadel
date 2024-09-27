@@ -18,8 +18,10 @@ void ServiceLocatorHelper::InitLocator(BulletFarm::ServiceLocator* locator)
 {
 #ifdef V8_PLATFORM_WINDOWS
     locator->RegisterInstance<IDebug>(new WindowsDebug);
+#elif V8_PLATFORM_MAC
+    locator->RegisterInstance<IDebug>(new WindowsDebug);
 #else
-#error Not Supported OS!
+    #error Not Supported OS!
 #endif
 }
 

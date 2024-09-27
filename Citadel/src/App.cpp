@@ -24,7 +24,8 @@ public:
         }
 #endif
     }
-    ~CitadelSandBox() override{};
+
+    ~CitadelSandBox() override = default;
 };
 
 V8::Application* V8::CreateApplication() { return new CitadelSandBox; }
