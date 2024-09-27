@@ -25,11 +25,6 @@ static void GLFWErrorCallback(int error, const char* desc)
     CORE_ERROR("GLFW Error ({0}): {1}", error, desc);
 }
 
-IWindow* IWindow::Create(const WindowProps& props)
-{
-    return new WindowsWindow(props);
-}
-
 WindowsWindow::WindowsWindow(const WindowProps& props) { Init(props); }
 
 WindowsWindow::~WindowsWindow() { Shutdown(); }

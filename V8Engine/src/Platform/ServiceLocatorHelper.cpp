@@ -2,7 +2,7 @@
 
 #include "ServiceLocatorHelper.h"
 
-#include "Platform/Windows/WindowsDebug.h"
+#include "PlatformInclude.h"
 
 namespace V8
 {
@@ -19,7 +19,7 @@ void ServiceLocatorHelper::InitLocator(BulletFarm::ServiceLocator* locator)
 #ifdef V8_PLATFORM_WINDOWS
     locator->RegisterInstance<IDebug>(new WindowsDebug);
 #elif V8_PLATFORM_MAC
-    locator->RegisterInstance<IDebug>(new WindowsDebug);
+    locator->RegisterInstance<IDebug>(new MacDebug);
 #else
     #error Not Supported OS!
 #endif

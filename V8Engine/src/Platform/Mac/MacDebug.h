@@ -5,10 +5,10 @@
 namespace V8
 {
 
-class WindowsDebug : public IDebug
+class MacDebug: public IDebug
 {
 public:
-    virtual ~WindowsDebug() override = default;
+    virtual ~MacDebug() override = default;
 
 public:
     virtual void IncludeDebugHeader() override;
@@ -16,4 +16,5 @@ public:
     virtual void CatchDebug() override;
 };
 
-} // namespace V8
+
+}

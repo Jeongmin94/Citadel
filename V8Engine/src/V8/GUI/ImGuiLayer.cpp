@@ -10,7 +10,6 @@
 #include <glad/glad.h>
 
 #include "V8/Application.h"
-#include "V8/Core/Core.h"
 #include "V8/Core/Window.h"
 #include "V8/Events/Event.h"
 
