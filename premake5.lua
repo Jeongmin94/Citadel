@@ -15,59 +15,16 @@ newoption {
 	description = "Enable ImGui Docking",
 }
 
-project "BulletFarm"
-	location "BulletFarm"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++20"
-	staticruntime "on" 
-
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
-	files
-	{
-		"%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp",
-	}
-
-	includedirs
-	{
-		"%{prj.name}/src",
-	}
-
-	filter "system:windows"
-		systemversion "latest"
-
-		defines
-		{
-			"V8_PLATFORM_WINDOWS", 
-		}
-
-	filter "configurations:Debug"
-		defines "CITADEL_DEBUG"
-		runtime "Debug"
-		symbols "On"
-
-	filter "configurations:Release"
-		defines "CITADEL_RELEASE"
-		runtime "Release"
-		optimize "On"
-
-	filter "configurations:Dist"
-		defines "CITADEL_DIST"
-		runtime "Release"
-		optimize "On"
-
 -- Include directories relative to root folder(solution directory)
 IncludeDir = {}
-IncludeDir["BulletFarm"] = "BulletFarm/src"
-IncludeDir["GLFW"] = "V8Engine/vendor/GLFW/include"
-IncludeDir["Glad"] = "V8Engine/vendor/Glad/include"
-IncludeDir["ImGui"] = "V8Engine/vendor/ImGui"
-IncludeDir["ImGuiDocking"] = "V8Engine/vendor/ImGui-Docking"
-IncludeDir["glm"] = "V8Engine/vendor/math/glm"
-IncludeDir["gtest"] = "UnitTest/vendor/googletest/googletest"
+IncludeDir["BulletFarm"] 			= "BulletFarm/src"
+IncludeDir["json"]					= "BulletFarm/vendor/json"
+IncludeDir["GLFW"] 					= "V8Engine/vendor/GLFW/include"
+IncludeDir["Glad"] 					= "V8Engine/vendor/Glad/include"
+IncludeDir["ImGui"] 				= "V8Engine/vendor/ImGui"
+IncludeDir["ImGuiDocking"] 			= "V8Engine/vendor/ImGui-Docking"
+IncludeDir["glm"] 					= "V8Engine/vendor/math/glm"
+IncludeDir["gtest"] 				= "UnitTest/vendor/googletest/googletest"
 
 -- include premake5.lua files in directory
 include "V8Engine/vendor/GLFW"
@@ -89,6 +46,53 @@ end
 print("ImGui Information")
 print("--include path: " .. ImGuiDir)
 print("--project: " .. ImGuiLink)
+
+project "BulletFarm"
+	location "BulletFarm"
+	kind "StaticLib"
+	language "C++"
+	cppdialect "C++20"
+	staticruntime "on" 
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+        IncludeDir["json"]
+	}
+
+	includedirs
+	{
+		"%{prj.name}/src",
+		"%{prj.name}/vendor/json"
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"V8_PLATFORM_WINDOWS",
+		}
+
+	filter "configurations:Debug"
+		defines "CITADEL_DEBUG"
+		runtime "Debug"
+		symbols "On"
+
+	filter "configurations:Release"
+		defines "CITADEL_RELEASE"
+		runtime "Release"
+		optimize "On"
+
+	filter "configurations:Dist"
+		defines "CITADEL_DIST"
+		runtime "Release"
+		optimize "On"
+
+
 
 project "V8Engine"
 	location "V8Engine" 
