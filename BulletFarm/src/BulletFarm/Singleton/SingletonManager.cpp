@@ -7,7 +7,7 @@
 namespace BulletFarm
 {
 
-size_t SingletonManager::s_SingletonId = 0;
+int32 SingletonManager::s_SingletonCounter = 0;
 
 SingletonManager& SingletonManager::GetInstance()
 {
@@ -15,20 +15,12 @@ SingletonManager& SingletonManager::GetInstance()
     return s_Manager;
 }
 
-size_t SingletonManager::RegisterSingleton(SingletonBase* singletonBase)
+int32 SingletonManager::RegisterSingleton(SingletonBase* singletonBase)
 {
-    m_Singletons.emplace(s_SingletonId,
-                         std::shared_ptr<SingletonBase>(singletonBase));
+    singletonBase->Init();
+    m_Singletons.emplace(++s_SingletonCounter, singletonBase);
 
-    return s_SingletonId++;
-}
-
-void SingletonManager::InitSingletons()
-{
-    for (auto& kv : m_Singletons)
-    {
-        kv.second->Init();
-    }
+    return s_SingletonCounter;
 }
 
 void SingletonManager::DeleteSingletons()
@@ -39,14 +31,14 @@ void SingletonManager::DeleteSingletons()
     }
 }
 
-SingletonBase* SingletonManager::GetSingleton(size_t id)
+SingletonBase* SingletonManager::GetSingleton(int32 id)
 {
     if (m_Singletons.find(id) == m_Singletons.end())
     {
         return nullptr;
     }
 
-    return m_Singletons[id].get();
+    return m_Singletons[id];
 }
 
 } // namespace BulletFarm

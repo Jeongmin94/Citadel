@@ -4,8 +4,4 @@
 
 namespace BulletFarm
 {
-
-template <typename T>
-T* Singleton<T>::s_Instance = nullptr;
-
-}
+} // namespace BulletFarm

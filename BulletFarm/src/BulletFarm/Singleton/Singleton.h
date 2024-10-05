@@ -18,12 +18,7 @@ public:
 public:
     virtual void Init() = 0;
     virtual void Delete() = 0;
-
-    inline void SetId(size_t id) { m_SingletonId = id; }
-    inline size_t GetId() const { return m_SingletonId; }
-
-private:
-    size_t m_SingletonId;
+    virtual int32 GetId() const = 0;
 };
 
 template <typename T>
@@ -34,25 +29,29 @@ private:
     Singleton& operator=(const T&) = delete;
 
 protected:
-    Singleton() = default;
+    Singleton()
+    {
+        s_SingletonId = SingletonManager::GetInstance().RegisterSingleton(this);
+    }
     virtual ~Singleton() = default;
 
 public:
-    static T& GetInstance() { return *s_Instance; }
-
-public:
-    virtual void Init() override
+    static T& GetInstance()
     {
-        s_Instance = new T();
-        size_t id =
-            SingletonManager::GetInstance().RegisterSingleton(s_Instance);
-        s_Instance->SetId(id);
+        static T s_Instance;
+        return s_Instance;
     }
 
-    virtual void Delete() override { delete s_Instance; }
+public:
+    virtual void Init() override {}
+    virtual void Delete() override {}
+    virtual int32 GetId() const override { return s_SingletonId; }
 
 private:
-    static T* s_Instance;
+    static int32 s_SingletonId;
 };
+
+template <typename T>
+int32 Singleton<T>::s_SingletonId = -1;
 
 } // namespace BulletFarm

@@ -1,7 +1,8 @@
 #pragma once
 
-#include <memory>
 #include <unordered_map>
+
+#include "BulletFarm/PrimitiveTypes.h"
 
 namespace BulletFarm
 {
@@ -19,19 +20,18 @@ public:
 
 public:
     static SingletonManager& GetInstance();
+    static int32 SingletonCounter() { return s_SingletonCounter; }
 
 public:
-    size_t RegisterSingleton(SingletonBase*);
-    void InitSingletons();
+    int32 RegisterSingleton(SingletonBase*);
     void DeleteSingletons();
 
-    SingletonBase* GetSingleton(size_t id);
+    SingletonBase* GetSingleton(int32 id);
 
 private:
-    static size_t s_SingletonId;
+    static int32 s_SingletonCounter;
 
-    using SingletonMap =
-        std::unordered_map<size_t, std::shared_ptr<SingletonBase>>;
+    using SingletonMap = std::unordered_map<int32, SingletonBase*>;
     SingletonMap m_Singletons;
 };
 
