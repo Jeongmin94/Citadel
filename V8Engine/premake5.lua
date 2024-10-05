@@ -20,13 +20,13 @@ project "V8Engine"
 
 	includedirs
 	{
-		"vendor/spdlog/include",
-		"src",
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.V8}",
 		"%{IncludeDir.BulletFarm}",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glm}",
-
+		"%{IncludeDir.json}",
 		ImGuiDir,
 	}
 

@@ -4,11 +4,11 @@ project "UnitTest"
 	cppdialect "C++20"
 	staticruntime "on"
 
-	pchheader "utpch.h"
-	pchsource "UnitTest/src/utpch.cpp"
-
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "utpch.h"
+	pchsource "src/utpch.cpp"
 
 	files
 	{
@@ -23,6 +23,7 @@ project "UnitTest"
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.V8}",
 		"%{IncludeDir.BulletFarm}",
+		"%{IncludeDir.json}",
 		
 		-- GoogleTest
 		"%{IncludeDir.gtest}/include",

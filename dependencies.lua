@@ -1,7 +1,7 @@
 -- Include directories relative to root folder(solution directory)
 IncludeDir = {}
 IncludeDir["BulletFarm"] 			= "%{wks.location}/BulletFarm/src"
-IncludeDir["json"]					= "%{wks.location}/BulletFarm/vendr/json"
+IncludeDir["json"]					= "%{wks.location}/BulletFarm/vendor/json"
 
 IncludeDir["GLFW"] 					= "%{wks.location}/V8Engine/vendor/GLFW/include"
 IncludeDir["Glad"] 					= "%{wks.location}/V8Engine/vendor/Glad/include"

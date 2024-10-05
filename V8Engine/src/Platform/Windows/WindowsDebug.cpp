@@ -26,10 +26,10 @@ void WindowsDebug::InitDebug()
 
 void WindowsDebug::CatchDebug()
 {
-#ifdef defined(V8_PLATFORM_WINDOWS) && defined(CITADEL_DEBUG)
+#if defined(V8_PLATFORM_WINDOWS) && defined(CITADEL_DEBUG)
     // https://stackoverflow.com/questions/2323458/how-to-ignore-false-positive-memory-leaks-from-crtdumpmemoryleaks
     //_CrtDumpMemoryLeaks();
-    _CrtSetBreakAlloc(159);
+    //_CrtSetBreakAlloc(159);
 #endif
 }
 

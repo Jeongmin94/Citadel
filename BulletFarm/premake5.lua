@@ -7,16 +7,21 @@ project "BulletFarm"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 
+	-- for pch use
+	pchheader "bfpch.h"
+	-- for pch create
+	pchsource "src/bfpch.cpp"
+
 	files
 	{
 		"src/**.h",
-        IncludeDir["json"]
+		"src/**.cpp",
 	}
 
 	includedirs
 	{
 		"src",
-		"vendor/json",
+        IncludeDir["json"]
 	}
 
 	filter "system:windows"

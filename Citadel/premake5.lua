@@ -20,6 +20,7 @@ project "Citadel"
 		"%{IncludeDir.V8Vendor}",
 		"%{IncludeDir.BulletFarm}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.json}",
 		ImGuiDir,
 	}
 
@@ -37,6 +38,7 @@ project "Citadel"
 			"V8_PLATFORM_WINDOWS",
 			"_CRT_SECURE_NO_WARNINGS",
 		}
+		linkoptions { "/NODEFAULTLIB:libcmt.lib" }
 
 	filter "configurations:Debug"
 		defines "CITADEL_DEBUG"

@@ -1,3 +1,5 @@
+#include "bfpch.h"
+
 #include "ServiceLocator.h"
 
 namespace BulletFarm
