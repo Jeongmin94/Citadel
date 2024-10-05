@@ -15,7 +15,7 @@ public:
     SingletonBase() = default;
     virtual ~SingletonBase() = default;
 
-protected:
+public:
     virtual void Init() = 0;
     virtual void Delete() = 0;
 
