@@ -7,7 +7,15 @@ namespace BulletFarm
 
 class SingletonBase
 {
+private:
+    SingletonBase(const SingletonBase&) = delete;
+    SingletonBase& operator=(const SingletonBase&) = delete;
+
 public:
+    SingletonBase() = default;
+    virtual ~SingletonBase() = default;
+
+protected:
     virtual void Init() = 0;
     virtual void Delete() = 0;
 
@@ -40,6 +48,7 @@ public:
             SingletonManager::GetInstance().RegisterSingleton(s_Instance);
         s_Instance->SetId(id);
     }
+
     virtual void Delete() override { delete s_Instance; }
 
 private:
