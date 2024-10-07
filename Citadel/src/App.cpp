@@ -1,5 +1,4 @@
 #include <BulletFarm.h>
-
 #include <V8Engine.h>
 
 #ifdef CITADEL_DEBUG

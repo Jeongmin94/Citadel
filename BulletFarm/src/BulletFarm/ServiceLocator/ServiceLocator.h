@@ -4,14 +4,18 @@
 #include <memory>
 #include <unordered_map>
 
+#include "BulletFarm/Singleton/Singleton.h"
+
 namespace BulletFarm
 {
 
-class ServiceLocator
+class ServiceLocator : public Singleton<ServiceLocator>
 {
+    MAKE_NO_COPY(ServiceLocator)
+
 public:
-    ServiceLocator();
-    ~ServiceLocator();
+    ServiceLocator() = default;
+    ~ServiceLocator() = default;
 
 public:
     void Clear();

@@ -13,10 +13,10 @@ int main(int argc, char** argv)
     CLI_WARN("Initialized CLI Log!");
 
     // Init Service
-    auto locator = V8::ServiceLocatorHelper::Get();
+    auto& locator = V8::ServiceLocatorHelper::Get();
     V8::ServiceLocatorHelper::InitLocator(locator);
 
-    const auto debugService = locator->Get<V8::IDebug>();
+    const auto debugService = locator.Get<V8::IDebug>();
     {
         debugService->IncludeDebugHeader();
         debugService->InitDebug();
@@ -29,8 +29,7 @@ int main(int argc, char** argv)
     delete app;
 
     V8::Log::Reset();
-    locator->Clear();
-
+    locator.Clear();
     {
         debugService->CatchDebug();
     }

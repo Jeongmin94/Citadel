@@ -4,6 +4,7 @@
 #include "BulletFarm/PrimitiveTypes.h"
 
 #include "BulletFarm/Singleton/Singleton.h"
+#include "BulletFarm/Singleton/SingletonInitializer.h"
 #include "BulletFarm/Singleton/SingletonManager.h"
 
 #include "BulletFarm/Reflection/ReflectionConcepts.h"

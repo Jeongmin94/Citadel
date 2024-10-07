@@ -14,6 +14,10 @@ namespace BulletFarm
 
 class JsonManager : public Singleton<JsonManager>
 {
+    MAKE_NO_COPY(JsonManager);
+
+public:
+    JsonManager() = default;
 };
 
 } // namespace BulletFarm

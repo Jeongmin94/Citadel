@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cassert>
+
+#include "BFMacros.h"
 #include "SingletonManager.h"
 
 namespace BulletFarm
@@ -7,11 +10,9 @@ namespace BulletFarm
 
 class SingletonBase
 {
-private:
-    SingletonBase(const SingletonBase&) = delete;
-    SingletonBase& operator=(const SingletonBase&) = delete;
+    MAKE_NO_COPY(SingletonBase);
 
-public:
+protected:
     SingletonBase() = default;
     virtual ~SingletonBase() = default;
 
@@ -24,13 +25,13 @@ public:
 template <typename T>
 class Singleton : public SingletonBase
 {
-private:
-    Singleton(const T&) = delete;
-    Singleton& operator=(const T&) = delete;
+    MAKE_NO_COPY(Singleton<T>)
 
 protected:
     Singleton()
     {
+        assert(s_SingletonId == -1);
+
         s_SingletonId = SingletonManager::GetInstance().RegisterSingleton(this);
     }
     virtual ~Singleton() = default;
@@ -39,6 +40,7 @@ public:
     static T& GetInstance()
     {
         static T s_Instance;
+
         return s_Instance;
     }
 

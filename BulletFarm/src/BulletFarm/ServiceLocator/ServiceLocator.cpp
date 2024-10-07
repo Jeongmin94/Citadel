@@ -5,10 +5,6 @@
 namespace BulletFarm
 {
 
-ServiceLocator::ServiceLocator() : m_InitializerMap(), m_InstanceMap() {}
-
-ServiceLocator::~ServiceLocator() {}
-
 void ServiceLocator::Clear()
 {
     m_InstanceMap.clear();
