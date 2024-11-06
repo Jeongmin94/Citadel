@@ -18,6 +18,7 @@ class JsonManager : public Singleton<JsonManager>
 
 public:
     JsonManager() = default;
+    ~JsonManager() = default;
 };
 
 } // namespace BulletFarm

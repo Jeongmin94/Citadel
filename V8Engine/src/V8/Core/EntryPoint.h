@@ -22,10 +22,20 @@ int main(int argc, char** argv)
         debugService->InitDebug();
     }
 
+    /*
+     * TODO:
+     * JsonManager를 이용하여 설정값을 읽어오고
+     * 설정값에 따라 불러와야 할 세팅 설정
+     * - Windows: Window - Win32API, Graphics - DirectX / OpenGL
+     * - Mac: Window - GLFW, Graphics - OpenGL(Glad)
+     * - GUI(공통): ImGui
+     */
+
     auto app = V8::CreateApplication();
     app->Validate();
 
     app->Run();
+
     delete app;
 
     V8::Log::Reset();

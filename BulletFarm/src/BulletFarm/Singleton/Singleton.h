@@ -19,7 +19,6 @@ protected:
 public:
     virtual void Init() = 0;
     virtual void Delete() = 0;
-    virtual int32 GetId() const = 0;
 };
 
 template <typename T>
@@ -45,9 +44,10 @@ public:
     }
 
 public:
+    static int32 Id() const { return s_SingletonId; }
+
     virtual void Init() override {}
     virtual void Delete() override {}
-    virtual int32 GetId() const override { return s_SingletonId; }
 
 private:
     static int32 s_SingletonId;
