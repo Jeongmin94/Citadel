@@ -10,7 +10,6 @@
 #include "Platform/OpenGL/OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
-#include <glad/glad.h>
 
 namespace V8
 {
@@ -23,11 +22,6 @@ static bool s_GLFWInitialized = false;
 static void GLFWErrorCallback(int error, const char* desc)
 {
     CORE_ERROR("GLFW Error ({0}): {1}", error, desc);
-}
-
-IWindow* IWindow::Create(const WindowProps& props)
-{
-    return new WindowsWindow(props);
 }
 
 WindowsWindow::WindowsWindow(const WindowProps& props) { Init(props); }

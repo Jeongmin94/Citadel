@@ -13,8 +13,9 @@ class V8API WindowsWindow : public IWindow
 {
 public:
     WindowsWindow(const WindowProps& props);
-    virtual ~WindowsWindow();
+    virtual ~WindowsWindow() override;
 
+public:
     void OnUpdate() override;
 
     inline uint32 GetWidth() const override { return m_Data.Width; };

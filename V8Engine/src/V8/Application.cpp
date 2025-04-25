@@ -10,8 +10,6 @@
 #include "V8/GUI/ImGuiLayer.h"
 #include "V8/Renderer/IShader.h"
 
-#include "Platform/Windows/WindowsInput.h"
-
 #include <glad/glad.h>
 
 namespace V8
@@ -19,6 +17,8 @@ namespace V8
 
 Application* Application::s_Instance = nullptr;
 
+// TODO: add layer for support windows, mac
+// TODO: add layer service to ServiceLocator
 Application::Application()
 {
     CORE_INFO("Application Initializing");
@@ -28,12 +28,15 @@ Application::Application()
 
     m_Window = std::unique_ptr<IWindow>(IWindow::Create());
     m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+    {
+        m_LayerStack = new LayerStack;
+        m_ImGuiLayer = new ImGuiLayer;
+        PushOverlay(m_ImGuiLayer);
+    }
 
-    m_LayerStack = new LayerStack;
-    m_ImGuiLayer = new ImGuiLayer;
-    PushOverlay(m_ImGuiLayer);
-
-    CORE_INFO("Application Initializing Finished");
+    /**
+     * Initializing Renderer
+     */
 
     glGenVertexArrays(1, &m_VertexArray);
     glBindVertexArray(m_VertexArray);
@@ -84,6 +87,8 @@ Application::Application()
     )";
 
     m_Shader = std::make_unique<IShader>(vertexSrc, fragmentSrc);
+
+    CORE_INFO("Application Initializing Finished");
 }
 
 Application::~Application()

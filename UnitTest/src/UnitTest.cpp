@@ -1,6 +1,7 @@
 #include "utpch.h"
 
 #include "BulletFarm/ReflectionTest.h"
+#include "BulletFarm/SingletonTest.h"
 
 int main(int argc, char** argv)
 {

@@ -28,3 +28,10 @@ git clone --recursive https://github.com/Jeongmin94/Citadel.git
 ### 1.2 Mac
 
 > Apple Silicon 기반이며 gcc, g++, CMake 설치를 전제로 함
+
+```bash
+# root directory
+mkdir build
+cd build && cmake ..
+make
+```

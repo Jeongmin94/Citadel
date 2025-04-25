@@ -40,13 +40,15 @@ public:
 private:
     bool OnWindowClose(WindowClosedEvent& e);
 
-    std::unique_ptr<IWindow> m_Window;
     bool m_IsRunning = true;
     LayerStack* m_LayerStack = nullptr;
     ImGuiLayer* m_ImGuiLayer = nullptr;
 
-    uint32 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+private:
+    std::unique_ptr<IWindow> m_Window;
     std::unique_ptr<IShader> m_Shader;
+
+    uint32 m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 
 private:
     static Application* s_Instance;
