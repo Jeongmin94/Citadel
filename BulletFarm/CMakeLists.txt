@@ -4,8 +4,9 @@ file(GLOB_RECURSE BULLETFARM_SOURCES "src/*.cpp" "src/*.h")
 
 add_library(BulletFarm STATIC ${BULLETFARM_SOURCES})
 
-target_include_directories(BulletFarm PRIVATE
-    src
+target_include_directories(BulletFarm PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/json
 )
 
 target_compile_definitions(BulletFarm PRIVATE

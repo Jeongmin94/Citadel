@@ -7,12 +7,12 @@ file(GLOB_RECURSE UNITTEST_SOURCES "src/*.cpp" "src/*.h")
 add_executable(UnitTest ${UNITTEST_SOURCES} src/UnitTest.cpp)
 
 target_include_directories(UnitTest PRIVATE
-    src
-    ../V8Engine/vendor/spdlog/include
-    ../V8Engine/src
-    ../BulletFarm/src
-    vendor/googletest/googletest/include
-    vendor/googletest/googletest
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../V8Engine/vendor/spdlog/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/../V8Engine/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../BulletFarm/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/googletest/googletest/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/googletest/googletest
 )
 
 target_link_libraries(UnitTest PRIVATE

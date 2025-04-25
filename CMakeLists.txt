@@ -26,12 +26,12 @@ file(GLOB_RECURSE CITADEL_SOURCES "Citadel/src/*.cpp" "Citadel/src/*.h")
 add_executable(Citadel ${CITADEL_SOURCES})
 
 target_include_directories(Citadel PRIVATE
-    V8Engine/vendor/spdlog/include
-    V8Engine/src
-    V8Engine/vendor
-    V8Engine/vendor/ImGui-Docking
-    V8Engine/vendor/math/glm
-    BulletFarm/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/vendor/spdlog/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/vendor
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/vendor/ImGui-Docking
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/vendor/math/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/BulletFarm/src
 )
 
 target_link_libraries(Citadel PRIVATE

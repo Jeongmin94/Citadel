@@ -9,13 +9,13 @@ file(GLOB_RECURSE V8ENGINE_SOURCES "src/*.cpp" "src/*.h")
 add_library(V8Engine STATIC ${V8ENGINE_SOURCES} src/v8pch.cpp)
 
 target_include_directories(V8Engine PRIVATE
-    vendor/spdlog/include
-    src
-    ../BulletFarm/src
-    vendor/GLFW/include
-    vendor/Glad/include
-    vendor/ImGui-Docking
-    vendor/math/glm
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/spdlog/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/../BulletFarm/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/GLFW/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/Glad/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/ImGui-Docking
+    ${CMAKE_CURRENT_SOURCE_DIR}/vendor/math/glm
 )
 
 target_link_libraries(V8Engine PRIVATE

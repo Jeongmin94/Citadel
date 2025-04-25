@@ -13,8 +13,8 @@ add_executable(Citadel
 )
 
 target_include_directories(Citadel PRIVATE
-    V8Engine/vendor/spdlog/include
-    V8Engine/src
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/vendor/spdlog/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/V8Engine/src
 )
 
 target_link_libraries(Citadel PRIVATE V8Engine)
