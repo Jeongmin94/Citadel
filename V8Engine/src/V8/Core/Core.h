@@ -2,7 +2,7 @@
 
 // clang-format off
 
-#if defined(V8_PLATFORM_WINDOWS) || defined(V8_PLATFORM_MAC)
+#if defined(V8_PLATFORM_WINDOWS) || defined(V8_PLATFORM_MAC) || defined(__APPLE__)
     #ifdef V8_DYNAMIC_LINK
 	#ifdef V8_BUILD_DLL
 	    #define V8API __declspec(dllexport)

@@ -1,6 +1,7 @@
 #pragma once
 
-#if defined(V8_PLATFORM_WINDOWS) || defined(V8_PLATFORM_MAC)
+#if defined(V8_PLATFORM_WINDOWS) || defined(V8_PLATFORM_MAC) ||                \
+    defined(__APPLE__)
 
 extern V8::Application* V8::CreateApplication();
 
@@ -24,11 +25,11 @@ int main(int argc, char** argv)
 
     /*
      * TODO:
-     * JsonManager¸¦ ÀÌ¿ëÇÏ¿© ¼³Á¤°ªÀ» ÀÐ¾î¿À°í
-     * ¼³Á¤°ª¿¡ µû¶ó ºÒ·¯¿Í¾ß ÇÒ ¼¼ÆÃ ¼³Á¤
+     * JsonManagerï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Í¾ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
      * - Windows: Window - Win32API, Graphics - DirectX / OpenGL
      * - Mac: Window - GLFW, Graphics - OpenGL(Glad)
-     * - GUI(°øÅë): ImGui
+     * - GUI(ï¿½ï¿½ï¿½ï¿½): ImGui
      */
 
     auto app = V8::CreateApplication();

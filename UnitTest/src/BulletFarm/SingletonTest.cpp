@@ -27,8 +27,8 @@ TEST(SingletonTest, SingletonTest_02)
 
     EXPECT_EQ(SingletonManager::GetInstance().SingletonCounter(), 2);
 
-    int32 id1 = TestSingleton1::GetInstance().GetId();
-    int32 id2 = TestSingleton2::GetInstance().GetId();
+    int32 id1 = TestSingleton1::GetInstance().Id();
+    int32 id2 = TestSingleton2::GetInstance().Id();
 
     EXPECT_EQ(SingletonManager::GetInstance().GetSingleton(id1),
               &TestSingleton1::GetInstance());
