@@ -24,8 +24,6 @@ public:
 template <typename T>
 class Singleton : public SingletonBase
 {
-    MAKE_NO_COPY(Singleton<T>)
-
 protected:
     Singleton()
     {
