@@ -17,16 +17,17 @@ protected:
 public:
     void OnDestroy()
     {
+        std::shared_ptr<Input> sptr(Input());
         if (s_Instance)
             delete s_Instance;
-    };
+    }
 
     inline static Input& Get() { return *s_Instance; }
 
     inline static bool IsKeyPressed(int32 keycode)
     {
         return s_Instance->IsKeyPressedImpl(keycode);
-    };
+    }
 
     inline static bool IsMouseButtonPressed(int32 button)
     {
