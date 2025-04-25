@@ -44,7 +44,7 @@ public:
     }
 
 public:
-    static int32 Id() const { return s_SingletonId; }
+    static int32 Id() { return s_SingletonId; }
 
     virtual void Init() override {}
     virtual void Delete() override {}
